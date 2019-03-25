@@ -15,20 +15,31 @@ public class FishManager : MonoBehaviour
     public Sprite fishFull;
     public Sprite fishNorm;
     public Sprite fishSick;
+    public GameObject deadFish;
 
     private float hunger;
     private FishState fishState;
+
+    private SpriteRenderer image;
+    private Rigidbody2D rigidbody2D;
 
     void Start()
     {
         hunger = 60;
         fishState = FishState.Full;
+
+        image = gameObject.GetComponent<SpriteRenderer>();
+        rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
         //depending on state and availability of food, seek food/idleswim?
+        if (true) //assuming no food
+        {
+            rigidbody2D.velocity += new Vector2(Random.Range(-0.25f, 0.25f), Random.Range(-0.25f, 0.25f));
+        }
 
         hunger -= Time.deltaTime;
         checkState();
@@ -44,7 +55,7 @@ public class FishManager : MonoBehaviour
                     if (hunger <= 40)
                     {
                         fishState = FishState.Norm;
-                        gameObject.GetComponent<SpriteRenderer>().sprite = fishNorm;
+                        image.sprite = fishNorm;
                     }
                 }
                 break;
@@ -55,13 +66,13 @@ public class FishManager : MonoBehaviour
                     if (hunger <= 40)
                     {
                         fishState = FishState.Full;
-                        gameObject.GetComponent<SpriteRenderer>().sprite = fishFull;
+                        image.sprite = fishFull;
                     }
                 }
                 else if(hunger <= 20)
                 {
                     fishState = FishState.Sick;
-                    gameObject.GetComponent<SpriteRenderer>().sprite = fishSick;
+                    image.sprite = fishSick;
                 }
                 break;
 
@@ -89,7 +100,8 @@ public class FishManager : MonoBehaviour
 
     public void die()
     {
+        Instantiate(deadFish, transform.position, Quaternion.identity);
+
         Destroy(gameObject);
-        //summon dead fish item
     }
 }
