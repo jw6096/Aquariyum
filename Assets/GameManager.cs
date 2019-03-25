@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
+    public GameObject coinPrefab;
+    Camera mainCamera;
     int coins;      //Number of coins
     int numberFish; //Number of owned fish
 
@@ -20,6 +22,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public Camera MainCamera
+    {
+        get { return mainCamera; }
+    }
+
     private void Awake()
     {
         //Make sure only one instance exists, singleton
@@ -31,6 +38,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        mainCamera = Camera.main;
 
         DontDestroyOnLoad(this);
     }
@@ -44,7 +53,16 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //if(Input.GetMouseButtonDown(0))
+        //{
+        //    Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //    SpawnCoin(new Vector2(mousePos.x, mousePos.y));
+        //}
+    }
+
+    public void SpawnCoin(Vector2 position)
+    {
+        Instantiate(coinPrefab, new Vector3(position.x, position.y, 0.0f), Quaternion.identity);
     }
 
     public void QuitGame()
