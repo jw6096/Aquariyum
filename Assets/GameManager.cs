@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if(Input.GetMouseButtonDown(0))
+        //if(Input.GetMouseButtonDown(1))
         //{
         //    Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         //    SpawnCoin(new Vector2(mousePos.x, mousePos.y));
@@ -63,6 +63,11 @@ public class GameManager : MonoBehaviour
     public void SpawnCoin(Vector2 position)
     {
         Instantiate(coinPrefab, new Vector3(position.x, position.y, 0.0f), Quaternion.identity);
+    }
+
+    public void SpawnCoin(Vector3 position, Transform parentTransform)
+    {
+        Instantiate(coinPrefab, new Vector3(position.x, position.y, 0.0f), Quaternion.identity, parentTransform);
     }
 
     public void QuitGame()
