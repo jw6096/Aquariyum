@@ -6,6 +6,9 @@ public class Rice : MonoBehaviour
 {
     public float foodVal;
 
+    private float coolDown;
+    private bool despawn;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,12 +16,22 @@ public class Rice : MonoBehaviour
         {
             fish.SendMessage("addRice", gameObject);
         }
+
+        despawn = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        gameObject.transform.position -= new Vector3(0.0f, 0.25f, 0.0f) * Time.deltaTime;
+        if (despawn)
+        {
+            coolDown -= Time.deltaTime;
+
+            if (coolDown <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
     private void OnDestroy()
@@ -27,5 +40,11 @@ public class Rice : MonoBehaviour
         {
             fish.SendMessage("removeRice", gameObject);
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        coolDown = 3;
+        despawn = true;
     }
 }

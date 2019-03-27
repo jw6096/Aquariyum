@@ -25,6 +25,7 @@ public class FishManager : MonoBehaviour
     private float x;
     private float y;
     private Camera camera;
+    private bool flip;
 
     private SpriteRenderer image;
     private Rigidbody2D rigidbody2D;
@@ -183,6 +184,17 @@ public class FishManager : MonoBehaviour
         if (rigidbody2D.velocity.magnitude > 1.5f)
         {
             rigidbody2D.velocity = rigidbody2D.velocity.normalized * 1.5f;
+        }
+
+        if (rigidbody2D.velocity.x < 0 && flip)
+        {
+            image.flipX = false;
+            flip = false;
+        }
+        else if (rigidbody2D.velocity.x > 0 && !flip)
+        {
+            image.flipX = true;
+            flip = true;
         }
     }
 
