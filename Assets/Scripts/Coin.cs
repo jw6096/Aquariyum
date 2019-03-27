@@ -6,23 +6,34 @@ public class Coin : MonoBehaviour
 {
     CircleCollider2D cCollider;
 
+    private float coolDown;
+    private bool despawn;
+
     // Start is called before the first frame update
     void Start()
     {
         cCollider = GetComponent<CircleCollider2D>();
+
+        despawn = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (despawn)
         {
-            Vector3 mousePos = GameManager.instance.MainCamera.ScreenToWorldPoint(Input.mousePosition);
-            if(cCollider.OverlapPoint(new Vector2(mousePos.x, mousePos.y)))
+            coolDown -= Time.deltaTime;
+
+            if (coolDown <= 0)
             {
-                PickupCoin();
+                Destroy(gameObject);
             }
         }
+    }
+
+    public void OnMouseOver()
+    {
+        PickupCoin();
     }
 
     public void PickupCoin()
@@ -30,5 +41,14 @@ public class Coin : MonoBehaviour
         GameManager.instance.Coins++;
         Debug.Log(GameManager.instance.Coins);
         Destroy(this.gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Ground")
+        {
+            coolDown = 3;
+            despawn = true;
+        }
     }
 }

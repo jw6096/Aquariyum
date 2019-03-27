@@ -18,6 +18,9 @@ public class Rice : MonoBehaviour
         }
 
         despawn = false;
+
+        //aesthetic purposes only
+        gameObject.GetComponent<Rigidbody2D>().angularVelocity = Random.Range(-30.0f, 30.0f);
     }
 
     // Update is called once per frame
@@ -44,7 +47,10 @@ public class Rice : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        coolDown = 3;
-        despawn = true;
+        if (collision.gameObject.tag == "Ground")
+        {
+            coolDown = 3;
+            despawn = true;
+        }
     }
 }

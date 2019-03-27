@@ -10,17 +10,26 @@ public class FishManager : MonoBehaviour
         Norm,
         Sick
     }
+    public enum FishAge
+    {
+        Baby,
+        Young,
+        Adult,
+        Elder
+    }
 
     // Start is called before the first frame update
 
-    public float interval;
     public Sprite fishFull;
     public Sprite fishNorm;
     public Sprite fishSick;
     public GameObject deadFish;
 
+    private float age;
+    private float interval;
     private float hunger;
     private FishState fishState;
+    private FishAge fishAge;
 
     private float x;
     private float y;
@@ -34,6 +43,11 @@ public class FishManager : MonoBehaviour
 
     void Start()
     {
+        fishAge = FishAge.Baby;
+        interval = 10;
+        age = 0;
+        gameObject.transform.localScale = new Vector3(0.25f, 0.25f, 1.0f);
+
         hunger = 2.5f * interval;
         fishState = FishState.Full;
 
@@ -80,6 +94,7 @@ public class FishManager : MonoBehaviour
         }
 
         hunger -= Time.deltaTime;
+        age += Time.deltaTime;
         checkState();
     }
 
@@ -133,6 +148,47 @@ public class FishManager : MonoBehaviour
                     }
                 }
                 else if (hunger <= 0)
+                {
+                    die();
+                }
+                break;
+
+            default:
+                die();
+                break;
+        }
+
+        switch (fishAge)
+        {
+            case FishAge.Baby:
+                if (age > 30)
+                {
+                    fishAge = FishAge.Young;
+                    age = 0;
+                    interval = 15;
+                    gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 1.0f);
+                }
+                break;
+            case FishAge.Young:
+                if (age > 45)
+                {
+                    fishAge = FishAge.Adult;
+                    age = 0;
+                    interval = 20;
+                    gameObject.transform.localScale = new Vector3(0.75f, 0.75f, 1.0f);
+                }
+                break;
+            case FishAge.Adult:
+                if (age > 150)
+                {
+                    fishAge = FishAge.Elder;
+                    age = 0;
+                    interval = 30;
+                    gameObject.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                }
+                break;
+            case FishAge.Elder:
+                if (age > 75)
                 {
                     die();
                 }
@@ -215,7 +271,7 @@ public class FishManager : MonoBehaviour
 
     private void die()
     {
-        Instantiate(deadFish, transform.position, Quaternion.identity);
+        Instantiate(deadFish, transform.position, Quaternion.identity).transform.localScale = gameObject.transform.localScale;
 
         Destroy(gameObject);
     }
