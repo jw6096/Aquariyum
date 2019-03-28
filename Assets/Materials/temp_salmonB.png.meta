@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: b11e5d38d1a57584c90fe70275f042a9
+guid: 50ab42c6f70264d4a9ebb8691841f6c5
 TextureImporter:
   fileIDToRecycleName:
-    21300000: temp_salmonA_0
-    21300002: temp_salmonA_1
-    21300004: temp_salmonA_2
-    21300006: temp_salmonA_3
+    21300000: temp_salmonB_0
+    21300002: temp_salmonB_1
+    21300004: temp_salmonB_2
+    21300006: temp_salmonB_3
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -99,13 +99,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: temp_salmonA_0
+      name: temp_salmonB_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 243
-        width: 348
-        height: 243
+        y: 121.5
+        width: 174
+        height: 121.5
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -113,19 +113,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8217c28bbb46ea143a1f5e514f5faaeb
+      spriteID: 6e8af255480c36443a6f247f700d77ae
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: temp_salmonA_1
+      name: temp_salmonB_1
       rect:
         serializedVersion: 2
-        x: 348
-        y: 243
-        width: 348
-        height: 243
+        x: 174
+        y: 121.5
+        width: 174
+        height: 121.5
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -133,19 +133,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 31670d601b2cb2940a00ffd337d449e2
+      spriteID: 5b40ceb417911f446a6911d588b0f578
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: temp_salmonA_2
+      name: temp_salmonB_2
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 348
-        height: 243
+        y: 0.5
+        width: 174
+        height: 121.5
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,19 +153,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d1b61ec996f2b254d9feb5ebc5942375
+      spriteID: 2ea7dcd3729c7274bb45fe303155fe77
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: temp_salmonA_3
+      name: temp_salmonB_3
       rect:
         serializedVersion: 2
-        x: 348
-        y: 0
-        width: 348
-        height: 243
+        x: 174
+        y: 0.5
+        width: 174
+        height: 121.5
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,7 +173,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1f68b6274d8cd1f4e8e66773c00d959a
+      spriteID: db17c4234b814f144a26eef02cc8e1c2
       vertices: []
       indices: 
       edges: []
@@ -181,7 +181,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: d585e22c0dfb3644db9326ffca4cf1a1
+    spriteID: 303bea86d0e2ade4dace42b42c2232ae
     vertices: []
     indices: 
     edges: []

@@ -8,213 +8,223 @@ public class FishManager : MonoBehaviour
     {
         Full,
         Norm,
-        Sick
-    }
-    public enum FishAge
-    {
-        Baby,
-        Young,
-        Adult,
-        Elder
+        Sick,
+        Dead
     }
 
     // Start is called before the first frame update
+    public float ageUpAt;
+    public float feedingInterval;
+    public string[] consumables;
+    public Sprite[] sprite;
+    public GameObject nextStage;
 
-    /*
-    public Sprite fishFull;
-    public Sprite fishNorm;
-    public Sprite fishSick;
-    public GameObject deadFish;
-    */
-
-    private float age;
-    private float interval;
-    private float hunger;
+    private float age = 0;
+    private float coolDown = 1;
+    public float hunger = 0;
     private FishState fishState;
-    private FishAge fishAge;
 
     private float x;
     private float y;
     private Camera camera;
     private bool flip;
 
+    private GameObject fishManager;
     private SpriteRenderer image;
     private Rigidbody2D rigidbody2D;
-    private List<GameObject> riceList = new List<GameObject>();
-    private GameObject closestRice;
+    private List<GameObject> foodList = new List<GameObject>();
+    private GameObject closestFood;
 
     void Start()
     {
-        fishAge = FishAge.Baby;
-        interval = 10;
-        age = 0;
-        //gameObject.transform.localScale = new Vector3(0.25f, 0.25f, 1.0f);
-
-        hunger = 2.5f * interval;
+        fishManager = GameObject.FindGameObjectWithTag("FishManager");
+        gameObject.transform.parent = fishManager.transform;
+        
+        if (hunger == 0)
+        {
+            hunger = 2.5f * feedingInterval;
+        }
         fishState = FishState.Full;
 
         Camera camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        x = camera.ViewportToWorldPoint(new Vector3(1, 1)).x - 1.75f;
-        y = camera.ViewportToWorldPoint(new Vector3(1, 1)).y - 1.5f;
+        x = camera.ViewportToWorldPoint(new Vector3(1, 1)).x - gameObject.GetComponent<BoxCollider2D>().size.x / 1.5f;
+        y = camera.ViewportToWorldPoint(new Vector3(1, 1)).y - gameObject.GetComponent<BoxCollider2D>().size.y / 1.5f;
 
         image = gameObject.GetComponent<SpriteRenderer>();
         rigidbody2D = gameObject.GetComponent<Rigidbody2D>();
 
-        riceList.AddRange(GameObject.FindGameObjectsWithTag("Rice"));
+        foreach (string consumable in consumables)
+        {
+            foodList.AddRange(GameObject.FindGameObjectsWithTag(consumable));
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        //avoid edges
-        avoidEdge();
-
-        //depending on state and availability of food, seek food/idleswim?
-        if (fishState != FishState.Full && riceList.Count > 0) //assuming food & hungry
+        if (fishState != FishState.Dead)
         {
-            if (closestRice == null)
+            //avoid edges
+            avoidEdge();
+
+            //depending on state and availability of food, seek food/idleswim?
+            if (fishState != FishState.Full && foodList.Count > 0) //assuming food & hungry
             {
-                assignClosestRice();
+                if (closestFood == null)
+                {
+                    assignClosestFood();
+                }
+                else
+                {
+                    Vector2 direction = new Vector2(closestFood.transform.position.x - gameObject.transform.position.x, closestFood.transform.position.y - gameObject.transform.position.y).normalized;
+
+                    rigidbody2D.AddForce(direction);
+
+                    rigidbody2D.velocity += direction;
+                }
+
+                if (rigidbody2D.velocity.magnitude > 2.0f)
+                {
+                    rigidbody2D.velocity = rigidbody2D.velocity.normalized * 2.0f;
+                }
             }
             else
             {
-                Vector2 direction = new Vector2(closestRice.transform.position.x - gameObject.transform.position.x, closestRice.transform.position.y - gameObject.transform.position.y).normalized;
-
-                rigidbody2D.AddForce(direction);
-
-                rigidbody2D.velocity += direction;
+                rigidbody2D.AddForce(new Vector2(Random.Range(-2f, 2f), Random.Range(-2f, 2f)));
             }
 
-            if (rigidbody2D.velocity.magnitude > 2.0f)
-            {
-                rigidbody2D.velocity = rigidbody2D.velocity.normalized * 2.0f;
-            }
+            hunger -= Time.deltaTime;
+            age += Time.deltaTime;
+            checkState();
         }
         else
         {
-            rigidbody2D.AddForce(new Vector2(Random.Range(-2f, 2f), Random.Range(-2f, 2f)));
-        }
+            coolDown -= Time.deltaTime;
+            image.color = new Color(1, 1, 1, coolDown);
 
-        hunger -= Time.deltaTime;
-        age += Time.deltaTime;
-        checkState();
+            gameObject.transform.position -= new Vector3(0, 0.05f, 0);
+
+            if (coolDown <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Rice" && fishState != FishState.Full)
+        foreach (string consumable in consumables)
         {
-            hunger += collision.gameObject.GetComponent<Rice>().foodVal;
+            if (collision.tag == consumable && fishState != FishState.Full)
+            {
+                hunger += collision.gameObject.GetComponent<Food>().foodVal;
 
-            rigidbody2D.velocity /= 5.0f;
+                rigidbody2D.velocity /= 5.0f;
 
-            Destroy(collision.gameObject);
+                Destroy(collision.gameObject);
+            }
         }
     }
 
-    public void checkState()
+    public void setHunger(float assgn)
+    {
+        hunger = assgn;
+    }
+
+    public void addFood(GameObject food)
+    {
+        if (System.Array.IndexOf(consumables, food.tag) != -1 && !foodList.Contains(food))
+        {
+            foodList.Add(food);
+
+            assignClosestFood();
+        }
+    }
+
+    public void removeFood(GameObject food)
+    {
+        if (foodList.Contains(food))
+        {
+            foodList.Remove(food);
+
+            assignClosestFood();
+        }
+    }
+
+    private void checkState()
     {
         switch (fishState)
         {
             case FishState.Full:
-                if (hunger < interval * 3.0f)
+                if (hunger < feedingInterval * 3.0f)
                 {
-                    if (hunger <= interval * 2.0f)
+                    if (hunger <= feedingInterval * 2.0f)
                     {
                         fishState = FishState.Norm;
-                        image.sprite = image.sprite.;
+                        image.sprite = sprite[1];
+                    }
+                    else if (hunger <= feedingInterval * 1.0f)
+                    {
+                        fishState = FishState.Sick;
+                        image.sprite = sprite[2];
                     }
                 }
                 break;
 
             case FishState.Norm:
-                if (hunger > interval * 2.0f)
+                if (hunger > feedingInterval * 2.0f)
                 {
                     fishState = FishState.Full;
-                    image.sprite = fishFull;
+                    image.sprite = sprite[0];
                 }
-                else if (hunger <= interval * 1.0f)
+                else if (hunger <= feedingInterval * 1.0f)
                 {
                     fishState = FishState.Sick;
-                    image.sprite = fishSick;
+                    image.sprite = sprite[2];
                 }
                 break;
 
             case FishState.Sick:
-                if (hunger > interval * 2.0f)
+                if (hunger > feedingInterval * 1.0f)
                 {
-                    if (hunger <= interval * 1.0f)
+
+                    if (hunger > feedingInterval * 2.0f)
+                    {
+                        fishState = FishState.Full;
+                        image.sprite = sprite[0];
+                    }
+                    else if (hunger > feedingInterval * 1.0f)
                     {
                         fishState = FishState.Norm;
-                        gameObject.GetComponent<SpriteRenderer>().sprite = fishNorm;
+                        image.sprite = sprite[1];
                     }
                 }
                 else if (hunger <= 0)
                 {
-                    die();
+                    fishState = FishState.Dead;
+                    image.sprite = sprite[3];
                 }
                 break;
 
             default:
-                die();
+                fishState = FishState.Dead;
+                image.sprite = sprite[3];
                 break;
         }
 
-        switch (fishAge)
+        if (age >= ageUpAt)
         {
-            case FishAge.Baby:
-                if (age > 30)
-                {
-                    fishAge = FishAge.Young;
-                    age = 0;
-                    interval = 15;
-                    //gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 1.0f);
-                }
-                break;
-            case FishAge.Young:
-                if (age > 45)
-                {
-                    fishAge = FishAge.Adult;
-                    age = 0;
-                    interval = 20;
-                    //gameObject.transform.localScale = new Vector3(0.75f, 0.75f, 1.0f);
-                }
-                break;
-            case FishAge.Adult:
-                if (age > 150)
-                {
-                    fishAge = FishAge.Elder;
-                    age = 0;
-                    interval = 30;
-                    //gameObject.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                }
-                break;
-            case FishAge.Elder:
-                if (age > 75)
-                {
-                    die();
-                }
-                break;
-
-            default:
-                die();
-                break;
+            if (nextStage)
+            {
+                Instantiate(nextStage, gameObject.transform.position, Quaternion.identity).GetComponent<FishManager>().setHunger(hunger);
+                Destroy(gameObject);
+            }
+            else
+            {
+                fishState = FishState.Dead;
+                image.sprite = sprite[3];
+            }
         }
-    }
-
-    public void addRice(GameObject rice)
-    {
-        if (!riceList.Contains(rice))
-        {
-            riceList.Add(rice);
-
-            assignClosestRice();
-        }
-    }
-
-    public void removeRice(GameObject rice)
-    {
-        riceList.Remove(rice);
     }
 
     private void avoidEdge()
@@ -256,25 +266,18 @@ public class FishManager : MonoBehaviour
         }
     }
 
-    private void assignClosestRice()
+    private void assignClosestFood()
     {
         float mag = 100;
 
-        foreach (GameObject rice in riceList)
+        foreach (GameObject food in foodList)
         {
-            if (Vector3.Distance(gameObject.transform.position, rice.transform.position) < mag)
+            if (Vector3.Distance(gameObject.transform.position, food.transform.position) < mag)
             {
-                closestRice = rice;
+                closestFood = food;
 
-                mag = Vector3.Distance(gameObject.transform.position, rice.transform.position);
+                mag = Vector3.Distance(gameObject.transform.position, food.transform.position);
             }
         }
-    }
-
-    private void die()
-    {
-        Instantiate(deadFish, transform.position, Quaternion.identity);//.transform.localScale = gameObject.transform.localScale;
-
-        Destroy(gameObject);
     }
 }
