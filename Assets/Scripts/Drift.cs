@@ -2,21 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rice : MonoBehaviour
+public class Drift : MonoBehaviour
 {
-    public float foodVal;
-
     private float coolDown;
     private bool despawn;
 
     // Start is called before the first frame update
     void Start()
     {
-        foreach (GameObject fish in GameObject.FindGameObjectsWithTag("Fish"))
-        {
-            fish.SendMessage("addRice", gameObject);
-        }
-
         despawn = false;
 
         //aesthetic purposes only
@@ -34,14 +27,6 @@ public class Rice : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-        }
-    }
-
-    private void OnDestroy()
-    {
-        foreach (GameObject fish in GameObject.FindGameObjectsWithTag("Fish"))
-        {
-            fish.SendMessage("removeRice", gameObject);
         }
     }
 
