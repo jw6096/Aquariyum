@@ -7,8 +7,12 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public GameObject coinPrefab;
     Camera mainCamera;
-    int coins;      //Number of coins
+    int coins = 99999;      //Number of coins
     int numberFish; //Number of owned fish
+    private bool isBuying = false;
+    public List<GameObject> items = new List<GameObject>();
+    public List<int> prices = new List<int>();
+    private int itemSlotNumber = 0;
 
     public int Coins
     {
@@ -53,11 +57,16 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if(Input.GetMouseButtonDown(1))
-        //{
-        //    Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //    SpawnCoin(new Vector2(mousePos.x, mousePos.y));
-        //}
+        if (isBuying)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Instantiate(items[itemSlotNumber], new Vector2(mousePos.x, mousePos.y), Quaternion.identity);
+                coins -= prices[itemSlotNumber];
+                isBuying = false;
+            }
+        }
     }
 
     public void SpawnCoin(Vector2 position)
@@ -73,5 +82,17 @@ public class GameManager : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void BuyItem(int slotNumber)
+    {
+        if (items[itemSlotNumber] != null)
+        {
+            if (coins - prices[slotNumber] > 0)
+            {
+                isBuying = true;
+                itemSlotNumber = slotNumber;
+            }
+        }
     }
 }
