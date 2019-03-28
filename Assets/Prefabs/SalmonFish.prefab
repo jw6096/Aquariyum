@@ -76,10 +76,10 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 3.64, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &4688139349012189874
@@ -94,7 +94,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a68ea212c06360f4da8814803289110c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interval: 20
   fishFull: {fileID: 21300000, guid: 28208ddbb0a263c418c094f57300da34, type: 3}
   fishNorm: {fileID: 21300000, guid: ae80c372aa93d8c4cbbc3e10ea34742f, type: 3}
   fishSick: {fileID: 21300000, guid: 5437fe860ebce7443b118b68218fb42b, type: 3}
@@ -138,7 +137,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 3.64, y: 2.56}
-    newSize: {x: 0.16, y: 0.16}
+    newSize: {x: 3.64, y: 2.56}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0

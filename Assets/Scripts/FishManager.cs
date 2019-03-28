@@ -20,10 +20,12 @@ public class FishManager : MonoBehaviour
 
     // Start is called before the first frame update
 
+    /*
     public Sprite fishFull;
     public Sprite fishNorm;
     public Sprite fishSick;
     public GameObject deadFish;
+    */
 
     private float age;
     private float interval;
@@ -46,7 +48,7 @@ public class FishManager : MonoBehaviour
         fishAge = FishAge.Baby;
         interval = 10;
         age = 0;
-        gameObject.transform.localScale = new Vector3(0.25f, 0.25f, 1.0f);
+        //gameObject.transform.localScale = new Vector3(0.25f, 0.25f, 1.0f);
 
         hunger = 2.5f * interval;
         fishState = FishState.Full;
@@ -120,7 +122,7 @@ public class FishManager : MonoBehaviour
                     if (hunger <= interval * 2.0f)
                     {
                         fishState = FishState.Norm;
-                        image.sprite = fishNorm;
+                        image.sprite = image.sprite.;
                     }
                 }
                 break;
@@ -166,7 +168,7 @@ public class FishManager : MonoBehaviour
                     fishAge = FishAge.Young;
                     age = 0;
                     interval = 15;
-                    gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 1.0f);
+                    //gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 1.0f);
                 }
                 break;
             case FishAge.Young:
@@ -175,7 +177,7 @@ public class FishManager : MonoBehaviour
                     fishAge = FishAge.Adult;
                     age = 0;
                     interval = 20;
-                    gameObject.transform.localScale = new Vector3(0.75f, 0.75f, 1.0f);
+                    //gameObject.transform.localScale = new Vector3(0.75f, 0.75f, 1.0f);
                 }
                 break;
             case FishAge.Adult:
@@ -184,7 +186,7 @@ public class FishManager : MonoBehaviour
                     fishAge = FishAge.Elder;
                     age = 0;
                     interval = 30;
-                    gameObject.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    //gameObject.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 }
                 break;
             case FishAge.Elder:
@@ -271,7 +273,7 @@ public class FishManager : MonoBehaviour
 
     private void die()
     {
-        Instantiate(deadFish, transform.position, Quaternion.identity).transform.localScale = gameObject.transform.localScale;
+        Instantiate(deadFish, transform.position, Quaternion.identity);//.transform.localScale = gameObject.transform.localScale;
 
         Destroy(gameObject);
     }
