@@ -316,7 +316,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff0eef7ad2a635442ab501d4fcdb4206, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinPrefab: {fileID: 0}
+  coinPrefab: {fileID: 757774231879854280, guid: 09d431dbe18d09343b067753545cf444,
+    type: 3}
   items:
   - {fileID: 1065293138, guid: f5a138d04cf10474faef8bc14d610b0d, type: 3}
   - {fileID: 6291539111968171395, guid: bf56b482d94656247bb564342f71752b, type: 3}
@@ -1327,6 +1328,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.x
       value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 6251038960443989201, guid: 31f37da6273d62e46918e55c42c023dc,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6251038960443989203, guid: 31f37da6273d62e46918e55c42c023dc,
         type: 3}
