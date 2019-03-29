@@ -31,7 +31,7 @@ public class Coin : MonoBehaviour
         }
     }
 
-    public void OnMouseOver()
+    public void OnMouseDown()
     {
         PickupCoin();
     }

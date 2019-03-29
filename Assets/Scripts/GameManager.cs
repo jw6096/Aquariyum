@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     Camera mainCamera;
     int coins = 99999;      //Number of coins
     int numberFish; //Number of owned fish
+    float spawnTimer;
     private bool isBuying = false;
     public List<GameObject> items = new List<GameObject>();
     public List<int> prices = new List<int>();
@@ -51,7 +52,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        spawnTimer = Random.Range(0.3f, 4.0f);
     }
 
     // Update is called once per frame
@@ -67,16 +68,24 @@ public class GameManager : MonoBehaviour
                 isBuying = false;
             }
         }
+
+        //Temp until coin spawner stuff is in
+        spawnTimer -= Time.deltaTime;
+        if(spawnTimer <= 0.0f)
+        {
+            SpawnCoin(new Vector3(Random.Range(-7, 7), 2.0f, 0.0f));
+            spawnTimer = Random.Range(0.3f, 4.0f);
+        }
     }
 
-    public void SpawnCoin(Vector2 position)
+    public void SpawnCoin(Vector3 position)
     {
-        Instantiate(coinPrefab, new Vector3(position.x, position.y, 0.0f), Quaternion.identity);
+        Instantiate(coinPrefab, position, Quaternion.identity);
     }
 
     public void SpawnCoin(Vector3 position, Transform parentTransform)
     {
-        Instantiate(coinPrefab, new Vector3(position.x, position.y, 0.0f), Quaternion.identity, parentTransform);
+        Instantiate(coinPrefab, position, Quaternion.identity, parentTransform);
     }
 
     public void QuitGame()
