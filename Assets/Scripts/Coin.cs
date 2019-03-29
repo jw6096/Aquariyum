@@ -4,22 +4,23 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    CircleCollider2D cCollider;
+    //CircleCollider2D cCollider;
 
-    private float coolDown;
-    private bool despawn;
+    //private float coolDown;
+    //private bool despawn;
 
     // Start is called before the first frame update
     void Start()
     {
-        cCollider = GetComponent<CircleCollider2D>();
+        //cCollider = GetComponent<CircleCollider2D>();
 
-        despawn = false;
+        //despawn = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        /*
         if (despawn)
         {
             coolDown -= Time.deltaTime;
@@ -29,6 +30,7 @@ public class Coin : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        */
     }
 
     public void OnMouseDown()
@@ -43,6 +45,7 @@ public class Coin : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+    /*
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Ground")
@@ -51,4 +54,5 @@ public class Coin : MonoBehaviour
             despawn = true;
         }
     }
+    */
 }
