@@ -156,18 +156,15 @@ public class FishManager : MonoBehaviour
         switch (fishState)
         {
             case FishState.Full:
-                if (hunger < feedingInterval * 3.0f)
+                if (hunger <= feedingInterval * 1.0f)
                 {
-                    if (hunger <= feedingInterval * 2.0f)
-                    {
-                        fishState = FishState.Norm;
-                        image.sprite = sprite[1];
-                    }
-                    else if (hunger <= feedingInterval * 1.0f)
-                    {
-                        fishState = FishState.Sick;
-                        image.sprite = sprite[2];
-                    }
+                    fishState = FishState.Sick;
+                    image.sprite = sprite[2];
+                }
+                else if (hunger <= feedingInterval * 2.0f)
+                {
+                    fishState = FishState.Norm;
+                    image.sprite = sprite[1];
                 }
                 break;
 
