@@ -12,7 +12,7 @@ public class Food : MonoBehaviour
     {
         fish = GameObject.FindGameObjectWithTag("FishManager");
 
-        fish.BroadcastMessage("addFood", gameObject);
+        fish.BroadcastMessage("addFood", gameObject, SendMessageOptions.DontRequireReceiver);
     }
 
     // Update is called once per frame
