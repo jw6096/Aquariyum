@@ -15,7 +15,6 @@ public class FishManager : MonoBehaviour
     // Start is called before the first frame update
     public float ageUpAt;
     public float feedingInterval;
-    public bool splashIn = false;
     public string[] consumables;
     public Sprite[] sprite;
     public GameObject nextStage;
@@ -29,6 +28,7 @@ public class FishManager : MonoBehaviour
     private float y;
     private Camera camera;
     private bool flip;
+    private bool splashIn = false;
 
     private GameObject fishManager;
     private SpriteRenderer image;
@@ -56,6 +56,7 @@ public class FishManager : MonoBehaviour
 
         foreach (string consumable in consumables)
         {
+            /*
             foreach (GameObject food in GameObject.FindGameObjectsWithTag(consumable))
             {
                 if (food.GetComponent<Food>())
@@ -63,8 +64,9 @@ public class FishManager : MonoBehaviour
                     foodList.Add(food);
                 }
             }
+            */
             
-            //foodList.AddRange(GameObject.FindGameObjectsWithTag(consumable));
+            foodList.AddRange(GameObject.FindGameObjectsWithTag(consumable));
         }
 
         if (splashIn)
@@ -178,6 +180,14 @@ public class FishManager : MonoBehaviour
 
             assignClosestFood();
         }
+    }
+
+    public void splash()
+    {
+        splashIn = true;
+
+        gameObject.transform.position = new Vector3(gameObject.transform.position.x, 8.0f, gameObject.transform.position.z);
+        rigidbody2D.AddForce(new Vector2(0.0f, -500.0f));
     }
 
     private void checkState()
