@@ -15,6 +15,7 @@ public class FishManager : MonoBehaviour
     // Start is called before the first frame update
     public float ageUpAt;
     public float feedingInterval;
+    public bool splashIn = false;
     public string[] consumables;
     public Sprite[] sprite;
     public GameObject nextStage;
@@ -57,56 +58,76 @@ public class FishManager : MonoBehaviour
         {
             foodList.AddRange(GameObject.FindGameObjectsWithTag(consumable));
         }
+
+        if (splashIn)
+        {
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, 8.0f, gameObject.transform.position.z);
+            rigidbody2D.AddForce(new Vector2(0.0f, -500.0f));
+
+            //Debug.Log("Begin Splash");
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (fishState != FishState.Dead)
+        if (splashIn)
         {
-            //avoid edges
-            avoidEdge();
-
-            //depending on state and availability of food, seek food/idleswim?
-            if (fishState != FishState.Full && foodList.Count > 0) //assuming food & hungry
+            if (gameObject.transform.position.y <= -1.0f)
             {
-                if (closestFood == null)
-                {
-                    assignClosestFood();
-                }
-                else
-                {
-                    Vector2 direction = new Vector2(closestFood.transform.position.x - gameObject.transform.position.x, closestFood.transform.position.y - gameObject.transform.position.y).normalized;
+                splashIn = false;
 
-                    rigidbody2D.AddForce(direction);
-
-                    rigidbody2D.velocity += direction;
-                }
-
-                if (rigidbody2D.velocity.magnitude > 2.0f)
-                {
-                    rigidbody2D.velocity = rigidbody2D.velocity.normalized * 2.0f;
-                }
+                //Debug.Log("End Splash");
             }
-            else
-            {
-                rigidbody2D.AddForce(new Vector2(Random.Range(-2f, 2f), Random.Range(-2f, 2f)));
-            }
-
-            hunger -= Time.deltaTime;
-            age += Time.deltaTime;
-            checkState();
         }
         else
         {
-            coolDown -= Time.deltaTime;
-            image.color = new Color(1, 1, 1, coolDown);
-
-            gameObject.transform.position -= new Vector3(0, 0.05f, 0);
-
-            if (coolDown <= 0)
+            if (fishState != FishState.Dead)
             {
-                Destroy(gameObject);
+                //avoid edges
+                avoidEdge();
+
+                //depending on state and availability of food, seek food/idleswim?
+                if (fishState != FishState.Full && foodList.Count > 0) //assuming food & hungry
+                {
+                    if (closestFood == null)
+                    {
+                        assignClosestFood();
+                    }
+                    else
+                    {
+                        Vector2 direction = new Vector2(closestFood.transform.position.x - gameObject.transform.position.x, closestFood.transform.position.y - gameObject.transform.position.y).normalized;
+
+                        rigidbody2D.AddForce(direction);
+
+                        rigidbody2D.velocity += direction;
+                    }
+
+                    if (rigidbody2D.velocity.magnitude > 2.0f)
+                    {
+                        rigidbody2D.velocity = rigidbody2D.velocity.normalized * 2.0f;
+                    }
+                }
+                else
+                {
+                    rigidbody2D.AddForce(new Vector2(Random.Range(-2f, 2f), Random.Range(-2f, 2f)));
+                }
+
+                hunger -= Time.deltaTime;
+                age += Time.deltaTime;
+                checkState();
+            }
+            else
+            {
+                coolDown -= Time.deltaTime;
+                image.color = new Color(1, 1, 1, coolDown);
+
+                gameObject.transform.position -= new Vector3(0, 0.05f, 0);
+
+                if (coolDown <= 0)
+                {
+                    Destroy(gameObject);
+                }
             }
         }
     }
@@ -213,7 +234,11 @@ public class FishManager : MonoBehaviour
         {
             if (nextStage)
             {
-                Instantiate(nextStage, gameObject.transform.position, Quaternion.identity).GetComponent<FishManager>().setHunger(hunger);
+                FishManager temp = Instantiate(nextStage, gameObject.transform.position, Quaternion.identity).GetComponent<FishManager>();
+
+                temp.setHunger(hunger);
+                //temp.splashIn = false;
+
                 Destroy(gameObject);
             }
             else

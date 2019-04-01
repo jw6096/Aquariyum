@@ -63,7 +63,13 @@ public class GameManager : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                Instantiate(items[itemSlotNumber], new Vector2(mousePos.x, mousePos.y), Quaternion.identity);
+
+                GameObject temp = Instantiate(items[itemSlotNumber], new Vector2(mousePos.x, mousePos.y), Quaternion.identity);
+                if (temp.tag == "Fish")
+                {
+                    temp.GetComponent<FishManager>().splashIn = true;
+                }
+
                 coins -= prices[itemSlotNumber];
                 isBuying = false;
             }
