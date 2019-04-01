@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9029733831393677765}
   - component: {fileID: 2377200666449074942}
   - component: {fileID: 4526518992924266796}
+  - component: {fileID: 4849380294388539917}
   m_Layer: 0
   m_Name: SalmonY
   m_TagString: Fish
@@ -143,6 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ageUpAt: 45
   feedingInterval: 15
+  splashIn: 0
   consumables:
   - Rice
   sprite:
@@ -150,5 +152,17 @@ MonoBehaviour:
   - {fileID: 21300002, guid: 44ce3db06079f1845a1b50ef9dde79c4, type: 3}
   - {fileID: 21300004, guid: 44ce3db06079f1845a1b50ef9dde79c4, type: 3}
   - {fileID: 21300006, guid: 44ce3db06079f1845a1b50ef9dde79c4, type: 3}
-  nextStage: {fileID: 6798589137400769990, guid: 62a791da164d40d488c23432e7d7174d,
-    type: 3}
+  nextStage: {fileID: 2144922372, guid: 6d1c6ba825b4ad04fad748bfd7f07f54, type: 3}
+--- !u!114 &4849380294388539917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5568451307657601175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4660b737b57d7fc4f99713135a6d96e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foodVal: 50

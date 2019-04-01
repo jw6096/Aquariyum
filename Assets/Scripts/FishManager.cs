@@ -56,7 +56,15 @@ public class FishManager : MonoBehaviour
 
         foreach (string consumable in consumables)
         {
-            foodList.AddRange(GameObject.FindGameObjectsWithTag(consumable));
+            foreach (GameObject food in GameObject.FindGameObjectsWithTag(consumable))
+            {
+                if (food.GetComponent<Food>())
+                {
+                    foodList.Add(food);
+                }
+            }
+            
+            //foodList.AddRange(GameObject.FindGameObjectsWithTag(consumable));
         }
 
         if (splashIn)
