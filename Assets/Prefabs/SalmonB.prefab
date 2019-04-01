@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7172145840663191669}
   m_Layer: 0
   m_Name: SalmonB
-  m_TagString: Fish
+  m_TagString: BabyFish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,7 +144,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ageUpAt: 30
   feedingInterval: 10
-  splashIn: 0
   consumables:
   - Rice
   sprite:
