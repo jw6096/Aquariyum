@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
                 Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
                 GameObject temp = Instantiate(items[itemSlotNumber], new Vector2(mousePos.x, mousePos.y), Quaternion.identity);
-                temp.SendMessage("splash", null, SendMessageOptions.DontRequireReceiver);
+                //temp.SendMessage("splash", null, SendMessageOptions.DontRequireReceiver);
                 
                 /*
                 if (temp.tag == "Fish")
@@ -109,8 +109,16 @@ public class GameManager : MonoBehaviour
         {
             if (coins - prices[slotNumber] > 0)
             {
-                isBuying = true;
-                itemSlotNumber = slotNumber;
+                if (items[slotNumber].tag != "Rice")
+                {
+                    //Debug.Log(items[slotNumber].tag);
+                    Instantiate(items[slotNumber], new Vector2(0, 0), Quaternion.identity).SendMessage("splash", null, SendMessageOptions.DontRequireReceiver);
+                }
+                else
+                {
+                    isBuying = true;
+                    itemSlotNumber = slotNumber;
+                }
             }
         }
     }

@@ -74,6 +74,7 @@ public class FishManager : MonoBehaviour
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, 8.0f, gameObject.transform.position.z);
             rigidbody2D.AddForce(new Vector2(0.0f, -500.0f));
 
+            gameObject.transform.position = new Vector3(Random.Range(-x, x), 8.0f, gameObject.transform.position.z);
             //Debug.Log("Begin Splash");
         }
     }
@@ -185,9 +186,6 @@ public class FishManager : MonoBehaviour
     public void splash()
     {
         splashIn = true;
-
-        gameObject.transform.position = new Vector3(gameObject.transform.position.x, 8.0f, gameObject.transform.position.z);
-        rigidbody2D.AddForce(new Vector2(0.0f, -500.0f));
     }
 
     private void checkState()
