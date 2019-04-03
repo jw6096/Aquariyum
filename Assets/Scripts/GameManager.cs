@@ -5,15 +5,18 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    public GameObject coinPrefab;
+    public GameObject bronze;
+    public GameObject silver;
+    public GameObject gold;
     Camera mainCamera;
-    int coins = 99999;      //Number of coins
+    int coins = 100;      //Number of coins
     int numberFish; //Number of owned fish
     float spawnTimer;
     private bool isBuying = false;
     public List<GameObject> items = new List<GameObject>();
     public List<int> prices = new List<int>();
     private int itemSlotNumber = 0;
+    [HideInInspector] public ushort value;
 
     public int Coins
     {
@@ -90,12 +93,44 @@ public class GameManager : MonoBehaviour
 
     public void SpawnCoin(Vector3 position)
     {
-        Instantiate(coinPrefab, position, Quaternion.identity);
+        int randVal = Random.Range(0, 100);
+
+        if (randVal < 70)
+        {
+            randVal = 0;
+        }
+        else if (randVal < 90)
+        {
+            randVal = 1;
+        }
+        else
+        {
+            randVal = 2;
+        }
+
+        switch (randVal)
+        {
+            case 0:
+                value = 1;
+                Instantiate(bronze, position, Quaternion.identity);
+                break;
+            case 1:
+                value = 5;
+                Instantiate(silver, position, Quaternion.identity);
+                break;
+            case 2:
+                value = 10;
+                Instantiate(gold, position, Quaternion.identity);
+                break;
+            default:
+                value = 1;
+                break;
+        }
     }
 
     public void SpawnCoin(Vector3 position, Transform parentTransform)
     {
-        Instantiate(coinPrefab, position, Quaternion.identity, parentTransform);
+        Instantiate(bronze, position, Quaternion.identity, parentTransform);
     }
 
     public void QuitGame()

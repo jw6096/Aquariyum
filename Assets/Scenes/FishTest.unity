@@ -299,7 +299,7 @@ GameObject:
   - component: {fileID: 740534602}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: Game Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -316,14 +316,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff0eef7ad2a635442ab501d4fcdb4206, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinPrefab: {fileID: 3101722269335243708, guid: e58a9664e1632024b9516f4beae4c317,
-    type: 3}
+  bronze: {fileID: 6644693053055932467, guid: 6df015d99ea5a204795ceb3a670e5e0c, type: 3}
+  silver: {fileID: 1088224995695492748, guid: a8d18b6dd0fc39b4ea0e30c54c648cc8, type: 3}
+  gold: {fileID: 6112041510284662149, guid: b9383b8420f58bd4bb0248fd6c48786c, type: 3}
   items:
   - {fileID: 1065293138, guid: f5a138d04cf10474faef8bc14d610b0d, type: 3}
   - {fileID: 6291539111968171395, guid: bf56b482d94656247bb564342f71752b, type: 3}
   - {fileID: 5568451307657601175, guid: 8df21814ff1de4646afcc06e5b538c91, type: 3}
   - {fileID: 187606054997975008, guid: 58ba0bd2a1d282942a0f9f0c01d9feab, type: 3}
   prices: 0a0000000a0000000a00000001000000
+  value: 0
 --- !u!4 &740534603
 Transform:
   m_ObjectHideFlags: 0

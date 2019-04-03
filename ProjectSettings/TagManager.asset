@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - FishManager
   - BabyFish
+  - Game Manager
   layers:
   - Default
   - TransparentFX

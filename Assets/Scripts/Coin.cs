@@ -8,18 +8,18 @@ public class Coin : MonoBehaviour
 
     //private float coolDown;
     //private bool despawn;
-
-    ushort value;
+    public GameManager gm;
 
     // Start is called before the first frame update
     void Start()
     {
+        gm = GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameManager>();
         //cCollider = GetComponent<CircleCollider2D>();
 
         //despawn = false;
 
         //Random weighted coin value spawning until coin spawners are in
-        SpriteRenderer coinSprite = GetComponentInChildren<SpriteRenderer>();
+        /*SpriteRenderer coinSprite = GetComponentInChildren<SpriteRenderer>();
         int randVal = Random.Range(0, 100);
 
         if(randVal < 70)
@@ -42,16 +42,16 @@ public class Coin : MonoBehaviour
                 break;
             case 1:
                 value = 5;
-                coinSprite.color = new Color(1.0f, 1.0f, 0.0f, 1.0f);   //yellow
+                //coinSprite.color = new Color(1.0f, 1.0f, 0.0f, 1.0f);   //yellow
                 break;
             case 2:
                 value = 10;
-                coinSprite.color = new Color(0.0f, 1.0f, 1.0f, 1.0f);   //light blue
+                //coinSprite.color = new Color(0.0f, 1.0f, 1.0f, 1.0f);   //light blue
                 break;
             default:
                 value = 1;
                 break;
-        }
+        }*/
     }
 
     // Update is called once per frame
@@ -77,8 +77,8 @@ public class Coin : MonoBehaviour
 
     public void PickupCoin()
     {
-        GameManager.instance.Coins+= value;
-        Debug.Log(GameManager.instance.Coins);
+        GameManager.instance.Coins += gm.value;
+        //Debug.Log(GameManager.instance.Coins);
         Destroy(this.gameObject);
     }
 
