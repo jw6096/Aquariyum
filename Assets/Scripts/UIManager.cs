@@ -7,7 +7,10 @@ public class UIManager : MonoBehaviour
 {
     // UI elements to be assigned in editor
     public Text coins;
+    public Button buyButton;
     public GameObject buyMenu;
+    public Button[] storeButtons;
+    public GameObject slider;
     private GameManager gm;
     private bool isStoreVisable = false; // True if the store is already displayed or not
     private bool isSlidingIn = false;
@@ -15,29 +18,38 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         gm = GetComponent<GameManager>();
+        UpdateCoins(gm.Coins);
     }
-
     public void FixedUpdate()
     {
         // TODO: Update to Rect transform so things scale properly
         if(isSlidingIn)
         {
-            buyMenu.transform.position = new Vector3(buyMenu.transform.position.x, buyMenu.transform.position.y - 1, buyMenu.transform.position.z);
-            if (buyMenu.transform.position.y <= 310)
+            RectTransform rt = buyMenu.GetComponent<RectTransform>();
+            rt.anchoredPosition = new Vector2(0, rt.anchoredPosition.y - 1);
+            if (rt.anchoredPosition.y <= -300)
             {
-                buyMenu.transform.position = new Vector3(buyMenu.transform.position.x, 310f, buyMenu.transform.position.z);
+                rt.anchoredPosition = new Vector2(0, -300);
                 isSlidingIn = false;
                 isStoreVisable = true;
+                foreach (Button button in storeButtons)
+                {
+                    button.interactable = true;
+                }
+                slider.GetComponent<ScrollRect>().enabled = true;
+                buyButton.interactable = true;
             }
         }
         if(isSlidingOut)
         {
-            buyMenu.transform.position = new Vector3(buyMenu.transform.position.x, buyMenu.transform.position.y + 1, buyMenu.transform.position.z);
-            if (buyMenu.transform.position.y >= 455.5)
+            RectTransform rt = buyMenu.GetComponent<RectTransform>();
+            rt.anchoredPosition = new Vector2(0, rt.anchoredPosition.y + 1);
+            if (rt.anchoredPosition.y >= -250)
             {
-                buyMenu.transform.position = new Vector3(buyMenu.transform.position.x, 455.5f, buyMenu.transform.position.z);
+                rt.anchoredPosition = new Vector2(0, -250);
                 isSlidingOut = false;
                 isStoreVisable = false;
+                buyButton.interactable = true;
             }
         }
     }
@@ -51,10 +63,16 @@ public class UIManager : MonoBehaviour
     {
         if (isSlidingIn == false && isSlidingOut == false)
         {
+            buyButton.interactable = false;
             if (isStoreVisable)
             {
                 isSlidingIn = false;
                 isSlidingOut = true;
+                foreach (Button button in storeButtons)
+                {
+                    button.interactable = false;
+                }
+                slider.GetComponent<ScrollRect>().enabled = false;
             }
             else
             {
