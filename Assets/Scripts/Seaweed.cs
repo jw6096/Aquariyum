@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Seaweed : MonoBehaviour
 {
-    public float minSpawnTime;
-    public float maxSpawnTime;
+    float minSpawnTime = 5.0f;
+    float maxSpawnTime = 10.0f;
 
     float coinTimer;
 
@@ -24,7 +24,23 @@ public class Seaweed : MonoBehaviour
         {
             coinTimer = Random.Range(minSpawnTime, maxSpawnTime);
 
-            GameManager.instance.SpawnCoin(transform.position + Vector3.up);
+            //Spawn random distance away
+            Vector3 spawnPos = new Vector3(transform.position.x + Random.Range(-3.0f, 3.0f), transform.position.y + Random.Range(1.0f, 3.0f), transform.position.z);
+            GameManager.instance.SpawnCoin(spawnPos);
+        }
+    }
+
+    public void SetSpawnTimers(float min, float max)
+    {
+        minSpawnTime = Mathf.Abs(min);
+
+        if(max >= min)
+        {
+            maxSpawnTime = max;
+        }
+        else
+        {
+            maxSpawnTime = min + 1.0f;
         }
     }
 }
