@@ -319,5 +319,15 @@ public class FishManager : MonoBehaviour
                 mag = Vector3.Distance(gameObject.transform.position, food.transform.position);
             }
         }
+
+        if (closestFood.GetComponent<BoxCollider2D>().IsTouching(gameObject.GetComponent<BoxCollider2D>())) {
+
+            hunger += closestFood.GetComponent<Food>().foodVal;
+
+            rigidbody2D.velocity /= 5.0f;
+
+            Destroy(closestFood);
+
+        }
     }
 }
