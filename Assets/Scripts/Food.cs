@@ -23,6 +23,6 @@ public class Food : MonoBehaviour
 
     private void OnDestroy()
     {
-        fish.BroadcastMessage("removeFood", gameObject);
+        //fish.BroadcastMessage("removeFood", gameObject);
     }
 }

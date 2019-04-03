@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
     public List<int> prices = new List<int>();
     private int itemSlotNumber = 0;
     [HideInInspector] public ushort value;
+    public Text amount;
 
     public int Coins
     {
@@ -48,6 +50,7 @@ public class GameManager : MonoBehaviour
         }
 
         mainCamera = Camera.main;
+        amount.text = "";
 
         DontDestroyOnLoad(this);
     }
@@ -89,6 +92,8 @@ public class GameManager : MonoBehaviour
             SpawnCoin(new Vector3(Random.Range(-7, 7), 2.0f, 0.0f));
             spawnTimer = Random.Range(0.3f, 4.0f);
         }
+
+        setCoinAmount();
     }
 
     public void SpawnCoin(Vector3 position)
@@ -130,7 +135,39 @@ public class GameManager : MonoBehaviour
 
     public void SpawnCoin(Vector3 position, Transform parentTransform)
     {
-        Instantiate(bronze, position, Quaternion.identity, parentTransform);
+        int randVal = Random.Range(0, 100);
+
+        if (randVal < 70)
+        {
+            randVal = 0;
+        }
+        else if (randVal < 90)
+        {
+            randVal = 1;
+        }
+        else
+        {
+            randVal = 2;
+        }
+
+        switch (randVal)
+        {
+            case 0:
+                value = 1;
+                Instantiate(bronze, position, Quaternion.identity);
+                break;
+            case 1:
+                value = 5;
+                Instantiate(silver, position, Quaternion.identity);
+                break;
+            case 2:
+                value = 10;
+                Instantiate(gold, position, Quaternion.identity);
+                break;
+            default:
+                value = 1;
+                break;
+        }
     }
 
     public void QuitGame()
@@ -156,5 +193,10 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void setCoinAmount()
+    {
+        amount.text = "Coins: " + coins.ToString();
     }
 }

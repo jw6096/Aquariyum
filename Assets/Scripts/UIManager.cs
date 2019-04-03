@@ -52,6 +52,8 @@ public class UIManager : MonoBehaviour
                 buyButton.interactable = true;
             }
         }
+
+        UpdateCoins(gm.Coins);
     }
 
     public void UpdateCoins(int amount)

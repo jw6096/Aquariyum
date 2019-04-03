@@ -1257,6 +1257,21 @@ PrefabInstance:
       propertyPath: m_Type
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3625206258055664696, guid: c20f2a462ef84c74bb3cd47445ab97b4,
+        type: 3}
+      propertyPath: m_Text
+      value: 'Coins:    '
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300773174239531641, guid: c20f2a462ef84c74bb3cd47445ab97b4,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -1.2000008
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300773174239531641, guid: c20f2a462ef84c74bb3cd47445ab97b4,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -1.0000687
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c20f2a462ef84c74bb3cd47445ab97b4, type: 3}
 --- !u!1001 &6251038961426659794
