@@ -10,6 +10,7 @@ public class Coin : MonoBehaviour
     //private bool despawn;
     public GameManager gm;
     public int value = 1;
+    private GameObject fish;
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +54,10 @@ public class Coin : MonoBehaviour
                 value = 1;
                 break;
         }*/
+
+        fish = GameObject.FindGameObjectWithTag("FishManager");
+
+        fish.BroadcastMessage("addCoin", gameObject, SendMessageOptions.DontRequireReceiver);
     }
 
     // Update is called once per frame
@@ -71,7 +76,7 @@ public class Coin : MonoBehaviour
         */
     }
 
-    public void OnMouseDown()
+    public void OnMouseOver()
     {
         //PickupCoin();
     }
@@ -92,4 +97,9 @@ public class Coin : MonoBehaviour
         }
     }
     */
+
+    private void OnDestroy()
+    {
+        fish.BroadcastMessage("removeCoin", gameObject);
+    }
 }
