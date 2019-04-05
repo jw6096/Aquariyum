@@ -13,12 +13,11 @@ public class GameManager : MonoBehaviour
     int coins = 100;      //Number of coins
     int numberFish; //Number of owned fish
     float spawnTimer;
-    private bool isBuying = false;
+    public GameObject rice;
     public List<GameObject> items = new List<GameObject>();
     public List<int> prices = new List<int>();
     private int itemSlotNumber = 0;
     [HideInInspector] public ushort value;
-    public Text amount;
 
     public int Coins
     {
@@ -50,7 +49,6 @@ public class GameManager : MonoBehaviour
         }
 
         mainCamera = Camera.main;
-        amount.text = "";
 
         DontDestroyOnLoad(this);
     }
@@ -64,25 +62,40 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isBuying)
+        if (Input.GetMouseButtonDown(0))
         {
-            if (Input.GetMouseButtonDown(0))
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(new Vector2(mousePos.x, mousePos.y), Vector2.zero, 0);
+            if (!hit)
             {
-                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-                GameObject temp = Instantiate(items[itemSlotNumber], new Vector2(mousePos.x, mousePos.y), Quaternion.identity);
-                //temp.SendMessage("splash", null, SendMessageOptions.DontRequireReceiver);
-                
-                /*
-                if (temp.tag == "Fish")
+                // TODO: Set up correct way to raycast for UI with another script
+                if (mousePos.y < 3)
                 {
-                    temp.GetComponent<FishManager>().splashIn = true;
+                    if (coins >= 1)
+                    {
+                        GameObject temp = Instantiate(rice, new Vector2(mousePos.x, mousePos.y), Quaternion.identity);
+                        coins -= 1;
+                        GetComponent<UIManager>().UpdateCoins(coins);
+                    }
                 }
-                */
-
-                coins -= prices[itemSlotNumber];
-                isBuying = false;
             }
+            else
+            {
+                if (hit.transform.gameObject.tag == "Coin")
+                {
+                    coins += hit.transform.gameObject.GetComponent<Coin>().value;
+                    Destroy(hit.transform.gameObject);
+                    GetComponent<UIManager>().UpdateCoins(coins);
+                }
+            }
+            //temp.SendMessage("splash", null, SendMessageOptions.DontRequireReceiver);
+
+            /*
+            if (temp.tag == "Fish")
+            {
+                temp.GetComponent<FishManager>().splashIn = true;
+            }
+            */
         }
 
         //Temp until coin spawner stuff is in
@@ -92,8 +105,6 @@ public class GameManager : MonoBehaviour
             SpawnCoin(new Vector3(Random.Range(-7, 7), 2.0f, 0.0f));
             spawnTimer = Random.Range(0.3f, 4.0f);
         }
-
-        setCoinAmount();
     }
 
     public void SpawnCoin(Vector3 position)
@@ -181,22 +192,11 @@ public class GameManager : MonoBehaviour
         {
             if (coins - prices[slotNumber] > 0)
             {
-                if (items[slotNumber].tag != "Rice")
-                {
-                    //Debug.Log(items[slotNumber].tag);
-                    Instantiate(items[slotNumber], new Vector2(0, 0), Quaternion.identity).SendMessage("splash", null, SendMessageOptions.DontRequireReceiver);
-                }
-                else
-                {
-                    isBuying = true;
-                    itemSlotNumber = slotNumber;
-                }
+                //Debug.Log(items[slotNumber].tag);
+                Instantiate(items[slotNumber], new Vector2(0, 0), Quaternion.identity).SendMessage("splash", null, SendMessageOptions.DontRequireReceiver);
+                coins -= prices[slotNumber];
             }
         }
-    }
-
-    public void setCoinAmount()
-    {
-        amount.text = "Coins: " + coins.ToString();
+        GetComponent<UIManager>().UpdateCoins(coins);
     }
 }

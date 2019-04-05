@@ -9,6 +9,7 @@ public class Coin : MonoBehaviour
     //private float coolDown;
     //private bool despawn;
     public GameManager gm;
+    public int value = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -72,7 +73,7 @@ public class Coin : MonoBehaviour
 
     public void OnMouseDown()
     {
-        PickupCoin();
+        //PickupCoin();
     }
 
     public void PickupCoin()

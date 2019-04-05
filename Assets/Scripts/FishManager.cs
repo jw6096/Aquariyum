@@ -324,8 +324,9 @@ public class FishManager : MonoBehaviour
 
             rigidbody2D.velocity /= 5.0f;
 
-            Destroy(closestFood);
+            removeFood(closestFood);
 
+            Destroy(closestFood);
         }
     }
 }

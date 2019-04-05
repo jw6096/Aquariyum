@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 291643219}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: Game Manager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -180,13 +180,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff0eef7ad2a635442ab501d4fcdb4206, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coinPrefab: {fileID: 757774231879854280, guid: 09d431dbe18d09343b067753545cf444,
-    type: 3}
+  bronze: {fileID: 6644693053055932467, guid: 6df015d99ea5a204795ceb3a670e5e0c, type: 3}
+  silver: {fileID: 1088224995695492748, guid: a8d18b6dd0fc39b4ea0e30c54c648cc8, type: 3}
+  gold: {fileID: 6112041510284662149, guid: b9383b8420f58bd4bb0248fd6c48786c, type: 3}
+  rice: {fileID: 187606054997975008, guid: 58ba0bd2a1d282942a0f9f0c01d9feab, type: 3}
   items:
-  - {fileID: 187606054997975008, guid: 58ba0bd2a1d282942a0f9f0c01d9feab, type: 3}
   - {fileID: 1065293138, guid: f5a138d04cf10474faef8bc14d610b0d, type: 3}
   - {fileID: 2384327312079193627, guid: 2b24597f91f14b94ca7aed5eec268039, type: 3}
-  prices: 01000000050000000a000000
+  - {fileID: 1910688962264660869, guid: 4078ac6d0182c894db92e45d40ceebab, type: 3}
+  prices: 050000000a00000014000000
+  value: 0
 --- !u!4 &291643221
 Transform:
   m_ObjectHideFlags: 0
@@ -628,6 +631,16 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8027491942521408600, guid: c20f2a462ef84c74bb3cd47445ab97b4,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 275
+      objectReference: {fileID: 0}
+    - target: {fileID: 8027491942521408600, guid: c20f2a462ef84c74bb3cd47445ab97b4,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -400
+      objectReference: {fileID: 0}
     - target: {fileID: 8027491940831460480, guid: c20f2a462ef84c74bb3cd47445ab97b4,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -953,6 +966,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 291643220}
+    - target: {fileID: 1977930354, guid: c20f2a462ef84c74bb3cd47445ab97b4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.2999878
+      objectReference: {fileID: 0}
+    - target: {fileID: 1977930354, guid: c20f2a462ef84c74bb3cd47445ab97b4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 7.699997
+      objectReference: {fileID: 0}
     - target: {fileID: 1977930355, guid: c20f2a462ef84c74bb3cd47445ab97b4, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

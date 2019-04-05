@@ -10,6 +10,7 @@ TagManager:
   - FishManager
   - BabyFish
   - Game Manager
+  - Coin
   layers:
   - Default
   - TransparentFX
