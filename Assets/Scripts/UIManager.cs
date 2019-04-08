@@ -22,7 +22,6 @@ public class UIManager : MonoBehaviour
     }
     public void FixedUpdate()
     {
-        // TODO: Update to Rect transform so things scale properly
         if(isSlidingIn)
         {
             RectTransform rt = buyMenu.GetComponent<RectTransform>();
@@ -42,6 +41,8 @@ public class UIManager : MonoBehaviour
         }
         if(isSlidingOut)
         {
+            storeButtons[0].GetComponent<Image>().color = Color.white;
+            GetComponent<GameManager>().isBuyingRice = false;
             RectTransform rt = buyMenu.GetComponent<RectTransform>();
             rt.anchoredPosition = new Vector2(0, rt.anchoredPosition.y + 1);
             if (rt.anchoredPosition.y >= -250)

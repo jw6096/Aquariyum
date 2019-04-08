@@ -83,7 +83,7 @@ public class Coin : MonoBehaviour
 
     public void PickupCoin()
     {
-        GameManager.instance.Coins += gm.value;
+        gm.Coins += value;
         Destroy(this.gameObject);
     }
 

@@ -11,6 +11,7 @@ TagManager:
   - BabyFish
   - Game Manager
   - Coin
+  - Menu
   layers:
   - Default
   - TransparentFX
