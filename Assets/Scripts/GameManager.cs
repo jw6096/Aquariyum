@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject silver;
     public GameObject gold;
     Camera mainCamera;
-    int coins = 100;      //Number of coins
+    int coins = 10;      //Number of coins
     int numberFish; //Number of owned fish
     float spawnTimer;
     public List<GameObject> items = new List<GameObject>();
