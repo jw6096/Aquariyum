@@ -78,7 +78,7 @@ public class Coin : MonoBehaviour
 
     public void OnMouseOver()
     {
-        //PickupCoin();
+        PickupCoin();
     }
 
     public void PickupCoin()

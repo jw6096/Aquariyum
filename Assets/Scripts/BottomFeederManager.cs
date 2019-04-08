@@ -137,7 +137,7 @@ public class BottomFeederManager : MonoBehaviour
     {
         if (collision.tag == "Coin")
         {
-            //handle coin pickup
+            collision.SendMessage("PickupCoin", null, SendMessageOptions.DontRequireReceiver);
         }
 
         foreach (string consumable in consumables)
@@ -263,7 +263,6 @@ public class BottomFeederManager : MonoBehaviour
                 FishManager temp = Instantiate(nextStage, gameObject.transform.position, Quaternion.identity).GetComponent<FishManager>();
 
                 temp.setHunger(hunger);
-                //temp.splashIn = false;
 
                 Destroy(gameObject);
             }
@@ -348,7 +347,7 @@ public class BottomFeederManager : MonoBehaviour
 
             if (closestCoin.GetComponent<CircleCollider2D>().IsTouching(gameObject.GetComponent<BoxCollider2D>()))
             {
-                //handle coin pickup
+                closestCoin.SendMessage("PickupCoin", null, SendMessageOptions.DontRequireReceiver);
             }
         }
         else
