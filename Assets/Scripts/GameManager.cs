@@ -113,12 +113,12 @@ public class GameManager : MonoBehaviour
         }
 
         //Temp until coin spawner stuff is in
-        spawnTimer -= Time.deltaTime;
+        /*spawnTimer -= Time.deltaTime;
         if(spawnTimer <= 0.0f)
         {
             SpawnCoin(new Vector3(Random.Range(-7, 7), 2.0f, 0.0f));
             spawnTimer = Random.Range(5.0f, 10.0f);
-        }
+        }*/
     }
 
     public void SpawnCoin(Vector3 position)
@@ -194,9 +194,17 @@ public class GameManager : MonoBehaviour
         {
             if (coins - prices[slotNumber] >= 0)
             {
-                //Debug.Log(items[slotNumber].tag);
-                Instantiate(items[slotNumber], new Vector2(0, 0), Quaternion.identity).SendMessage("splash", null, SendMessageOptions.DontRequireReceiver);
-                coins -= prices[slotNumber];
+                if (slotNumber == 3)
+                {
+                    Instantiate(items[slotNumber], new Vector2(6.5f, -2.5f), Quaternion.identity).SendMessage("splash", null, SendMessageOptions.DontRequireReceiver);
+                    coins -= prices[slotNumber];
+                }
+                else
+                {
+                    //Debug.Log(items[slotNumber].tag);
+                    Instantiate(items[slotNumber], new Vector2(0, 0), Quaternion.identity).SendMessage("splash", null, SendMessageOptions.DontRequireReceiver);
+                    coins -= prices[slotNumber];
+                }
             }
         }
         GetComponent<UIManager>().UpdateCoins(coins);

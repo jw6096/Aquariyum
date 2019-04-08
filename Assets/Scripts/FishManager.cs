@@ -18,6 +18,9 @@ public class FishManager : MonoBehaviour
     public string[] consumables;
     public Sprite[] sprite;
     public GameObject nextStage;
+    public GameObject bronze;
+    public GameObject silver;
+    public GameObject gold;
 
     private float age = 0;
     private float coolDown = 1;
@@ -35,8 +38,12 @@ public class FishManager : MonoBehaviour
     private List<GameObject> foodList = new List<GameObject>();
     private GameObject closestFood;
 
+    float spawnTimer;
+
     void Start()
     {
+        spawnTimer = Random.Range(5.0f, 10.0f);
+
         fishManager = GameObject.FindGameObjectWithTag("FishManager");
         gameObject.transform.parent = fishManager.transform;
         
@@ -118,6 +125,122 @@ public class FishManager : MonoBehaviour
             {
                 Destroy(gameObject);
             }
+        }
+
+        spawnTimer -= Time.deltaTime;
+        if (spawnTimer <= 0.0f)
+        {
+            SpawnCoin(new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y, 0.0f));
+            spawnTimer = Random.Range(5.0f, 10.0f);
+        }
+    }
+    public void SpawnCoin(Vector3 position)
+    {
+        int randVal = Random.Range(0, 100);
+
+        if(fishManager.name == "SalmonB")
+        {
+            if (randVal < 80)
+                randVal = 0;
+            else if (randVal < 100)
+                randVal = 1;
+            else
+                randVal = 2;
+        }
+        else if (fishManager.name == "SalmonY")
+        {
+            if (randVal < 55)
+                randVal = 0;
+            else if (randVal < 85)
+                randVal = 1;
+            else
+                randVal = 2;
+        }
+        else if (fishManager.name == "SalmonA")
+        {
+            if (randVal < 45)
+                randVal = 0;
+            else if (randVal < 75)
+                randVal = 1;
+            else
+                randVal = 2;
+        }
+        else
+        {
+            if (randVal < 35)
+                randVal = 0;
+            else if (randVal < 70)
+                randVal = 1;
+            else
+                randVal = 2;
+        }
+
+        switch (randVal)
+        {
+            case 0:
+                Instantiate(bronze, position, Quaternion.identity);
+                break;
+            case 1:
+                Instantiate(silver, position, Quaternion.identity);
+                break;
+            case 2:
+                Instantiate(gold, position, Quaternion.identity);
+                break;
+        }
+    }
+
+    public void SpawnCoin(Vector3 position, Transform parentTransform)
+    {
+        int randVal = Random.Range(0, 100);
+
+        if (fishManager.name == "SalmonB")
+        {
+            if (randVal < 70)
+                randVal = 0;
+            else if (randVal < 90)
+                randVal = 1;
+            else
+                randVal = 2;
+        }
+        else if (fishManager.name == "SalmonY")
+        {
+            if (randVal < 55)
+                randVal = 0;
+            else if (randVal < 85)
+                randVal = 1;
+            else
+                randVal = 2;
+        }
+        else if (fishManager.name == "SalmonA")
+        {
+            if (randVal < 40)
+                randVal = 0;
+            else if (randVal < 80)
+                randVal = 1;
+            else
+                randVal = 2;
+        }
+        else
+        {
+            if (randVal < 20)
+                randVal = 0;
+            else if (randVal < 70)
+                randVal = 1;
+            else
+                randVal = 2;
+        }
+
+        switch (randVal)
+        {
+            case 0:
+                Instantiate(bronze, position, Quaternion.identity);
+                break;
+            case 1:
+                Instantiate(silver, position, Quaternion.identity);
+                break;
+            case 2:
+                Instantiate(gold, position, Quaternion.identity);
+                break;
         }
     }
 

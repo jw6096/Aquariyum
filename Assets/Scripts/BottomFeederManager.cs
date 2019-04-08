@@ -36,6 +36,10 @@ public class BottomFeederManager : MonoBehaviour
     private GameObject closestFood;
     private GameObject closestCoin;
 
+    public GameObject money;
+    private int timer = 0;
+    private bool check = false;
+
     void Start()
     {
         fishManager = GameObject.FindGameObjectWithTag("FishManager");

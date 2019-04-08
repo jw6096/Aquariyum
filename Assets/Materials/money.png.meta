@@ -1,11 +1,8 @@
 fileFormatVersion: 2
-guid: 42d7087c8b12da64b95adde12b4b94dd
+guid: 0a2584af61c6d534fb2687a7a1f560cb
 TextureImporter:
   fileIDToRecycleName:
-    21300000: temp_salmonA_0
-    21300002: temp_salmonA_1
-    21300004: temp_salmonA_2
-    21300006: temp_salmonA_3
+    21300000: money_0
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -99,13 +96,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: temp_salmonA_0
+      name: money_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 243
-        width: 348
-        height: 243
+        x: 10
+        y: 11
+        width: 300
+        height: 329
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -113,67 +110,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 993198726fab7a044a512dd63a766180
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: temp_salmonA_1
-      rect:
-        serializedVersion: 2
-        x: 348
-        y: 264
-        width: 348
-        height: 222
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f29204c7469fcf540a1fed00940d7de0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: temp_salmonA_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 45
-        width: 348
-        height: 198
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 32192b7b5eb394043b8b0cd202d346bb
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: temp_salmonA_3
-      rect:
-        serializedVersion: 2
-        x: 348
-        y: 45
-        width: 348
-        height: 198
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fc148a82534f6944b8b407a690256ddd
+      spriteID: b74d3e948f3b83640bf38afda3132e99
       vertices: []
       indices: 
       edges: []
@@ -181,7 +118,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 413046caa7a896744a8035c36c8c9d7a
+    spriteID: 898523803bf029041986828059739bf5
     vertices: []
     indices: 
     edges: []

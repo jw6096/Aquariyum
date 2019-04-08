@@ -146,3 +146,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gm: {fileID: 0}
   value: 5
+  money: {fileID: 5919420866652239965, guid: a500e965b069d234491bb6cd5039cef9, type: 3}
