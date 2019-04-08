@@ -112,6 +112,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &92775819 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3625206258055664696, guid: c20f2a462ef84c74bb3cd47445ab97b4,
+    type: 3}
+  m_PrefabInstance: {fileID: 2006080859}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &348243054
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,7 +366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d4dfc29b8c2cbc489b67271834f4fb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coins: {fileID: 2006080862}
+  coins: {fileID: 92775819}
   buyButton: {fileID: 2006080861}
   buyMenu: {fileID: 2006080860}
   storeButtons:
@@ -986,6 +998,21 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 8803529732388315308, guid: c20f2a462ef84c74bb3cd47445ab97b4,
+        type: 3}
+      propertyPath: m_Text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3246934373097103730, guid: c20f2a462ef84c74bb3cd47445ab97b4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5364510851246032143, guid: c20f2a462ef84c74bb3cd47445ab97b4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c20f2a462ef84c74bb3cd47445ab97b4, type: 3}
 --- !u!1 &2006080860 stripped
@@ -1004,18 +1031,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2006080862 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8803529732388315308, guid: c20f2a462ef84c74bb3cd47445ab97b4,
-    type: 3}
-  m_PrefabInstance: {fileID: 2006080859}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2006080863 stripped

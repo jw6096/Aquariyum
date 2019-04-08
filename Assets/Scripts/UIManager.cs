@@ -59,7 +59,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateCoins(int amount)
     {
-        coins.text = amount.ToString();
+        coins.text = "Coins: " + amount.ToString();
     }
 
     public void SlideStore()
