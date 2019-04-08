@@ -322,8 +322,8 @@ MonoBehaviour:
   gold: {fileID: 6112041510284662149, guid: b9383b8420f58bd4bb0248fd6c48786c, type: 3}
   rice: {fileID: 187606054997975008, guid: 58ba0bd2a1d282942a0f9f0c01d9feab, type: 3}
   items:
-  - {fileID: 1065293138, guid: f5a138d04cf10474faef8bc14d610b0d, type: 3}
-  - {fileID: 2384327312079193627, guid: 2b24597f91f14b94ca7aed5eec268039, type: 3}
+  - {fileID: 4389853909487931526, guid: 238c6610dbb38a9438de86be4c750249, type: 3}
+  - {fileID: 1937812975232789391, guid: 3f4deb875d4862540be7e9223d79a07a, type: 3}
   - {fileID: 1910688962264660869, guid: 4078ac6d0182c894db92e45d40ceebab, type: 3}
   prices: 050000000a00000014000000
   value: 0
@@ -1221,6 +1221,11 @@ PrefabInstance:
     - target: {fileID: 2110003370352205320, guid: def5c6690f122ac4fb21fe5a52318147,
         type: 3}
       propertyPath: m_GravityScale
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2110003370352205320, guid: def5c6690f122ac4fb21fe5a52318147,
+        type: 3}
+      propertyPath: m_LinearDrag
       value: 0.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []

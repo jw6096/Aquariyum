@@ -27,7 +27,6 @@ public class BottomFeederManager : MonoBehaviour
     private float x;
     private Camera camera;
     private bool flip;
-    private bool splashIn = false;
 
     private GameObject fishManager;
     private SpriteRenderer image;
@@ -60,94 +59,76 @@ public class BottomFeederManager : MonoBehaviour
         }
 
         coinList.AddRange(GameObject.FindGameObjectsWithTag("Coin"));
-
-        if (splashIn)
-        {
-            gameObject.transform.position = new Vector3(gameObject.transform.position.x, 8.0f, gameObject.transform.position.z);
-            rigidbody2D.AddForce(new Vector2(0.0f, -500.0f));
-
-            gameObject.transform.position = new Vector3(Random.Range(-x, x), 8.0f, gameObject.transform.position.z);
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (splashIn)
+        if (fishState != FishState.Dead)
         {
-            if (gameObject.transform.position.y <= -1.0f)
+            //avoid edges
+            avoidEdge();
+
+            //depending on state and availability of food, seek food/idleswim?
+            if (fishState != FishState.Full && foodList.Count > 0) //assuming food & hungry
             {
-                splashIn = false;
-            }
-        }
-        else
-        {
-            if (fishState != FishState.Dead)
-            {
-                //avoid edges
-                avoidEdge();
-
-                //depending on state and availability of food, seek food/idleswim?
-                if (fishState != FishState.Full && foodList.Count > 0) //assuming food & hungry
+                if (closestFood == null)
                 {
-                    if (closestFood == null)
-                    {
-                        assignClosestFood();
-                    }
-                    else
-                    {
-                        Vector2 direction = new Vector2(closestFood.transform.position.x - gameObject.transform.position.x, 0).normalized;
-
-                        rigidbody2D.AddForce(direction);
-
-                        rigidbody2D.velocity += direction;
-                    }
-
-                    if (rigidbody2D.velocity.magnitude > 2.0f)
-                    {
-                        rigidbody2D.velocity = rigidbody2D.velocity.normalized * 2.0f;
-                    }
-                }
-                else if(coinList.Count > 0) //assuming coins are present
-                {
-                    if (closestCoin == null)
-                    {
-                        assignClosestCoin();
-                    }
-                    else
-                    {
-                        Vector2 direction = new Vector2(closestCoin.transform.position.x - gameObject.transform.position.x, 0).normalized;
-
-                        rigidbody2D.AddForce(direction);
-
-                        rigidbody2D.velocity += direction;
-                    }
-
-                    if (rigidbody2D.velocity.magnitude > 2.0f)
-                    {
-                        rigidbody2D.velocity = rigidbody2D.velocity.normalized * 2.0f;
-                    }
+                    assignClosestFood();
                 }
                 else
                 {
-                    rigidbody2D.AddForce(new Vector2(Random.Range(-2f, 2f), 0));
+                    Vector2 direction = new Vector2(closestFood.transform.position.x - gameObject.transform.position.x, 0).normalized;
+
+                    rigidbody2D.AddForce(direction);
+
+                    rigidbody2D.velocity += direction;
                 }
 
-                hunger -= Time.deltaTime;
-                age += Time.deltaTime;
-                checkState();
+                if (rigidbody2D.velocity.magnitude > 2.0f)
+                {
+                    rigidbody2D.velocity = rigidbody2D.velocity.normalized * 2.0f;
+                }
+            }
+            else if(coinList.Count > 0) //assuming coins are present
+            {
+                if (closestCoin == null)
+                {
+                    assignClosestCoin();
+                }
+                else
+                {
+                    Vector2 direction = new Vector2(closestCoin.transform.position.x - gameObject.transform.position.x, 0).normalized;
+
+                    rigidbody2D.AddForce(direction);
+
+                    rigidbody2D.velocity += direction;
+                }
+
+                if (rigidbody2D.velocity.magnitude > 2.0f)
+                {
+                    rigidbody2D.velocity = rigidbody2D.velocity.normalized * 2.0f;
+                }
             }
             else
             {
-                coolDown -= Time.deltaTime;
-                image.color = new Color(1, 1, 1, coolDown);
+                rigidbody2D.AddForce(new Vector2(Random.Range(-2f, 2f), 0));
+            }
 
-                gameObject.transform.position -= new Vector3(0, 0.05f, 0);
+            hunger -= Time.deltaTime;
+            age += Time.deltaTime;
+            checkState();
+        }
+        else
+        {
+            coolDown -= Time.deltaTime;
+            image.color = new Color(1, 1, 1, coolDown);
 
-                if (coolDown <= 0)
-                {
-                    Destroy(gameObject);
-                }
+            gameObject.transform.position -= new Vector3(0, 0.05f, 0);
+
+            if (coolDown <= 0)
+            {
+                Destroy(gameObject);
             }
         }
     }
@@ -215,11 +196,6 @@ public class BottomFeederManager : MonoBehaviour
 
             assignClosestCoin();
         }
-    }
-
-    public void splash()
-    {
-        splashIn = true;
     }
 
     private void checkState()

@@ -28,7 +28,6 @@ public class FishManager : MonoBehaviour
     private float y;
     private Camera camera;
     private bool flip;
-    private bool splashIn = false;
 
     private GameObject fishManager;
     private SpriteRenderer image;
@@ -68,77 +67,56 @@ public class FishManager : MonoBehaviour
             
             foodList.AddRange(GameObject.FindGameObjectsWithTag(consumable));
         }
-
-        if (splashIn)
-        {
-            gameObject.transform.position = new Vector3(gameObject.transform.position.x, 8.0f, gameObject.transform.position.z);
-            rigidbody2D.AddForce(new Vector2(0.0f, -500.0f));
-
-            gameObject.transform.position = new Vector3(Random.Range(-x, x), 8.0f, gameObject.transform.position.z);
-            //Debug.Log("Begin Splash");
-        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (splashIn)
+        if (fishState != FishState.Dead)
         {
-            if (gameObject.transform.position.y <= -1.0f)
-            {
-                splashIn = false;
+            //avoid edges
+            avoidEdge();
 
-                //Debug.Log("End Splash");
-            }
-        }
-        else
-        {
-            if (fishState != FishState.Dead)
+            //depending on state and availability of food, seek food/idleswim?
+            if (fishState != FishState.Full && foodList.Count > 0) //assuming food & hungry
             {
-                //avoid edges
-                avoidEdge();
-
-                //depending on state and availability of food, seek food/idleswim?
-                if (fishState != FishState.Full && foodList.Count > 0) //assuming food & hungry
+                if (closestFood == null)
                 {
-                    if (closestFood == null)
-                    {
-                        assignClosestFood();
-                    }
-                    else
-                    {
-                        Vector2 direction = new Vector2(closestFood.transform.position.x - gameObject.transform.position.x, closestFood.transform.position.y - gameObject.transform.position.y).normalized;
-
-                        rigidbody2D.AddForce(direction);
-
-                        rigidbody2D.velocity += direction;
-                    }
-
-                    if (rigidbody2D.velocity.magnitude > 2.0f)
-                    {
-                        rigidbody2D.velocity = rigidbody2D.velocity.normalized * 2.0f;
-                    }
+                    assignClosestFood();
                 }
                 else
                 {
-                    rigidbody2D.AddForce(new Vector2(Random.Range(-2f, 2f), Random.Range(-2f, 2f)));
+                    Vector2 direction = new Vector2(closestFood.transform.position.x - gameObject.transform.position.x, closestFood.transform.position.y - gameObject.transform.position.y).normalized;
+
+                    rigidbody2D.AddForce(direction);
+
+                    rigidbody2D.velocity += direction;
                 }
 
-                hunger -= Time.deltaTime;
-                age += Time.deltaTime;
-                checkState();
+                if (rigidbody2D.velocity.magnitude > 2.0f)
+                {
+                    rigidbody2D.velocity = rigidbody2D.velocity.normalized * 2.0f;
+                }
             }
             else
             {
-                coolDown -= Time.deltaTime;
-                image.color = new Color(1, 1, 1, coolDown);
+                rigidbody2D.AddForce(new Vector2(Random.Range(-2f, 2f), Random.Range(-2f, 2f)));
+            }
 
-                gameObject.transform.position -= new Vector3(0, 0.05f, 0);
+            hunger -= Time.deltaTime;
+            age += Time.deltaTime;
+            checkState();
+        }
+        else
+        {
+            coolDown -= Time.deltaTime;
+            image.color = new Color(1, 1, 1, coolDown);
 
-                if (coolDown <= 0)
-                {
-                    Destroy(gameObject);
-                }
+            gameObject.transform.position -= new Vector3(0, 0.05f, 0);
+
+            if (coolDown <= 0)
+            {
+                Destroy(gameObject);
             }
         }
     }
@@ -181,11 +159,6 @@ public class FishManager : MonoBehaviour
 
             assignClosestFood();
         }
-    }
-
-    public void splash()
-    {
-        splashIn = true;
     }
 
     private void checkState()

@@ -100,6 +100,6 @@ public class Coin : MonoBehaviour
 
     private void OnDestroy()
     {
-        fish.BroadcastMessage("removeCoin", gameObject);
+        fish.BroadcastMessage("removeCoin", gameObject, SendMessageOptions.DontRequireReceiver);
     }
 }
