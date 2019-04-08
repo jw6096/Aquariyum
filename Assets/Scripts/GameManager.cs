@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,11 +14,14 @@ public class GameManager : MonoBehaviour
     int coins = 100;      //Number of coins
     int numberFish; //Number of owned fish
     float spawnTimer;
-    public GameObject rice;
     public List<GameObject> items = new List<GameObject>();
     public List<int> prices = new List<int>();
     private int itemSlotNumber = 0;
-    [HideInInspector] public ushort value;
+    public bool isBuyingRice = false;
+
+    GraphicRaycaster m_Raycaster;
+    PointerEventData m_PointerEventData;
+    EventSystem m_EventSystem;
 
     public int Coins
     {
@@ -56,7 +60,11 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        spawnTimer = Random.Range(0.3f, 4.0f);
+        spawnTimer = Random.Range(5.0f, 10.0f);
+        //Fetch the Raycaster from the GameObject (the Canvas)
+        m_Raycaster = GameObject.FindWithTag("Menu").GetComponent<GraphicRaycaster>();
+        //Fetch the Event System from the Scene
+        m_EventSystem = GetComponent<EventSystem>();
     }
 
     // Update is called once per frame
@@ -66,26 +74,32 @@ public class GameManager : MonoBehaviour
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(new Vector2(mousePos.x, mousePos.y), Vector2.zero, 0);
-            if (!hit)
+            m_PointerEventData = new PointerEventData(m_EventSystem);
+            //Set the Pointer Event Position to that of the mouse position
+            m_PointerEventData.position = Input.mousePosition;
+            //Create a list of Raycast Results
+            List<RaycastResult> results = new List<RaycastResult>();
+            //Raycast using the Graphics Raycaster and mouse click position
+            m_Raycaster.Raycast(m_PointerEventData, results);
+            if (!hit && results.Count == 0)
             {
-                // TODO: Set up correct way to raycast for UI with another script
-                if (mousePos.y < 3)
+                if (coins >= prices[0] && isBuyingRice)
                 {
-                    if (coins >= 1)
-                    {
-                        GameObject temp = Instantiate(rice, new Vector2(mousePos.x, mousePos.y), Quaternion.identity);
-                        coins -= 1;
-                        GetComponent<UIManager>().UpdateCoins(coins);
-                    }
+                    GameObject temp = Instantiate(items[0], new Vector2(mousePos.x, mousePos.y), Quaternion.identity);
+                    coins -= prices[0];
+                    GetComponent<UIManager>().UpdateCoins(coins);
                 }
             }
             else
             {
-                if (hit.transform.gameObject.tag == "Coin")
+                if (hit)
                 {
-                    coins += hit.transform.gameObject.GetComponent<Coin>().value;
-                    Destroy(hit.transform.gameObject);
-                    GetComponent<UIManager>().UpdateCoins(coins);
+                    if (hit.transform.gameObject.tag == "Coin")
+                    {
+                        coins += hit.transform.gameObject.GetComponent<Coin>().value;
+                        Destroy(hit.transform.gameObject);
+                        GetComponent<UIManager>().UpdateCoins(coins);
+                    }
                 }
             }
             //temp.SendMessage("splash", null, SendMessageOptions.DontRequireReceiver);
@@ -103,7 +117,7 @@ public class GameManager : MonoBehaviour
         if(spawnTimer <= 0.0f)
         {
             SpawnCoin(new Vector3(Random.Range(-7, 7), 2.0f, 0.0f));
-            spawnTimer = Random.Range(0.3f, 4.0f);
+            spawnTimer = Random.Range(5.0f, 10.0f);
         }
     }
 
@@ -127,19 +141,13 @@ public class GameManager : MonoBehaviour
         switch (randVal)
         {
             case 0:
-                value = 1;
                 Instantiate(bronze, position, Quaternion.identity);
                 break;
             case 1:
-                value = 5;
                 Instantiate(silver, position, Quaternion.identity);
                 break;
             case 2:
-                value = 10;
                 Instantiate(gold, position, Quaternion.identity);
-                break;
-            default:
-                value = 1;
                 break;
         }
     }
@@ -164,19 +172,13 @@ public class GameManager : MonoBehaviour
         switch (randVal)
         {
             case 0:
-                value = 1;
                 Instantiate(bronze, position, Quaternion.identity);
                 break;
             case 1:
-                value = 5;
                 Instantiate(silver, position, Quaternion.identity);
                 break;
             case 2:
-                value = 10;
                 Instantiate(gold, position, Quaternion.identity);
-                break;
-            default:
-                value = 1;
                 break;
         }
     }
@@ -190,7 +192,7 @@ public class GameManager : MonoBehaviour
     {
         if (items[itemSlotNumber] != null)
         {
-            if (coins - prices[slotNumber] > 0)
+            if (coins - prices[slotNumber] >= 0)
             {
                 //Debug.Log(items[slotNumber].tag);
                 Instantiate(items[slotNumber], new Vector2(0, 0), Quaternion.identity).SendMessage("splash", null, SendMessageOptions.DontRequireReceiver);
@@ -198,5 +200,18 @@ public class GameManager : MonoBehaviour
             }
         }
         GetComponent<UIManager>().UpdateCoins(coins);
+    }
+    public void SelectRice()
+    {
+        if(isBuyingRice)
+        {
+            isBuyingRice = false;
+            GetComponent<UIManager>().storeButtons[0].GetComponent<Image>().color = Color.white;
+        }
+        else
+        {
+            isBuyingRice = true;
+            GetComponent<UIManager>().storeButtons[0].GetComponent<Image>().color = Color.green;
+        }
     }
 }
