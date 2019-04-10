@@ -119,18 +119,12 @@ public class GameManager : MonoBehaviour
     {
         int randVal = Random.Range(0, 100);
 
-        if (randVal < 70)
-        {
+        if (randVal < 60)
             randVal = 0;
-        }
         else if (randVal < 90)
-        {
             randVal = 1;
-        }
         else
-        {
             randVal = 2;
-        }
 
         switch (randVal)
         {

@@ -142,7 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a68ea212c06360f4da8814803289110c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ageUpAt: 30
+  ageUpAt: 10
   feedingInterval: 10
   consumables:
   - Rice

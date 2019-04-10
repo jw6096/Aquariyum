@@ -12,6 +12,15 @@ public class FishManager : MonoBehaviour
         Dead
     }
 
+    public enum FishAge
+    {
+        Baby,
+        Toddler,
+        Normal,
+        Adult,
+        Predator
+    }
+
     // Start is called before the first frame update
     public float ageUpAt;
     public float feedingInterval;
@@ -26,6 +35,7 @@ public class FishManager : MonoBehaviour
     private float coolDown = 1;
     private float hunger = 0;
     private FishState fishState;
+    private FishAge fishAge;
 
     private float x;
     private float y;
@@ -40,16 +50,47 @@ public class FishManager : MonoBehaviour
     private GameObject closestFood;
 
     float spawnTimer;
+    int count;
+    private GameObject predator;
+    private GameObject baby;
+    private GameObject toddler;
+    private GameObject normal;
+    private GameObject adult;
 
     void Start()
     {
         fishManager = GameObject.FindGameObjectWithTag("FishManager");
         gameObject.transform.parent = fishManager.transform;
-        
+
+        switch (count)
+        {
+            case 0:
+                fishAge = FishAge.Baby;
+                fishManager.name = "baby";
+                break;
+            case 1:
+                fishAge = FishAge.Toddler;
+                fishManager.name = "toddler";
+                break;
+            case 2:
+                fishAge = FishAge.Normal;
+                fishManager.name = "normal";
+                break;
+            case 3:
+                fishAge = FishAge.Adult;
+                fishManager.name = "adult";
+                break;
+            default:
+                fishAge = FishAge.Predator;
+                fishManager.name = "predator";
+                break;
+        }
+
         if (hunger == 0)
         {
             hunger = 2.5f * feedingInterval;
         }
+
         fishState = FishState.Full;
 
         Camera camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
@@ -138,13 +179,15 @@ public class FishManager : MonoBehaviour
             SpawnCoin(new Vector3(this.gameObject.transform.position.x + Random.Range(0.5f, 0.5f), this.gameObject.transform.position.y + Random.Range(-0.5f, 0.5f), 0.0f));
             spawnTimer = Random.Range(5.0f, 10.0f);
         }
+
+        Debug.Log(fishAge);
     }
 
     public void SpawnCoin(Vector3 position)
     {
         int randVal = Random.Range(0, 100);
 
-        if (fishManager.gameObject.CompareTag("BabyFish"))
+        if (fishManager.name == "baby")
         {
             if (randVal < 80)
                 randVal = 0;
@@ -153,7 +196,7 @@ public class FishManager : MonoBehaviour
             else
                 randVal = 2;
         }
-        else if (fishManager.gameObject.CompareTag("ToddlerFish"))
+        else if (fishManager.name == "toddler")
         {
             if (randVal < 70)
                 randVal = 0;
@@ -162,7 +205,7 @@ public class FishManager : MonoBehaviour
             else
                 randVal = 2;
         }
-        else if (fishManager.gameObject.CompareTag("Fish"))
+        else if (fishManager.name == "normal")
         {
             if (randVal < 60)
                 randVal = 0;
@@ -171,7 +214,7 @@ public class FishManager : MonoBehaviour
             else
                 randVal = 2;
         }
-        else if (fishManager.gameObject.CompareTag("AdultFish"))
+        else if (fishManager.name == "adult")
         {
             if (randVal < 50)
                 randVal = 0;
@@ -208,38 +251,47 @@ public class FishManager : MonoBehaviour
     {
         int randVal = Random.Range(0, 100);
 
-        if (fishManager.name == "SalmonB")
+        if (fishManager.name == "baby")
+        {
+            if (randVal < 80)
+                randVal = 0;
+            else if (randVal < 100)
+                randVal = 1;
+            else
+                randVal = 2;
+        }
+        else if (fishManager.name == "toddler")
         {
             if (randVal < 70)
+                randVal = 0;
+            else if (randVal < 95)
+                randVal = 1;
+            else
+                randVal = 2;
+        }
+        else if (fishManager.name == "normal")
+        {
+            if (randVal < 60)
                 randVal = 0;
             else if (randVal < 90)
                 randVal = 1;
             else
                 randVal = 2;
         }
-        else if (fishManager.name == "SalmonY")
+        else if (fishManager.name == "adult")
         {
-            if (randVal < 55)
+            if (randVal < 50)
                 randVal = 0;
             else if (randVal < 85)
                 randVal = 1;
             else
                 randVal = 2;
         }
-        else if (fishManager.name == "SalmonA")
-        {
-            if (randVal < 40)
-                randVal = 0;
-            else if (randVal < 80)
-                randVal = 1;
-            else
-                randVal = 2;
-        }
         else
         {
-            if (randVal < 20)
+            if (randVal < 30)
                 randVal = 0;
-            else if (randVal < 70)
+            else if (randVal < 75)
                 randVal = 1;
             else
                 randVal = 2;
@@ -375,9 +427,12 @@ public class FishManager : MonoBehaviour
         {
             if (nextStage)
             {
+                count++;
                 FishManager temp = Instantiate(nextStage, gameObject.transform.position, Quaternion.identity).GetComponent<FishManager>();
 
                 temp.setHunger(hunger);
+                temp.getCount = count;
+
                 //temp.splashIn = false;
 
                 Destroy(gameObject);
@@ -453,5 +508,11 @@ public class FishManager : MonoBehaviour
 
             Destroy(closestFood);
         }
+    }
+
+    public int getCount
+    {
+        get { return count; }
+        set { count = value; }
     }
 }

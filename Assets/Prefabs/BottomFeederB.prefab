@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3235705356133931237}
   m_Layer: 0
   m_Name: BottomFeederB
-  m_TagString: BabyFish
+  m_TagString: BottomFeeder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
