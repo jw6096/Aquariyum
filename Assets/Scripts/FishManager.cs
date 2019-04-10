@@ -28,6 +28,7 @@ public class FishManager : MonoBehaviour
     private float y;
     private Camera camera;
     private bool flip;
+    private bool nabbed = false;
 
     private GameObject fishManager;
     private SpriteRenderer image;
@@ -72,6 +73,11 @@ public class FishManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (nabbed)
+        {
+            return;
+        }
+
         if (fishState != FishState.Dead)
         {
             //avoid edges
@@ -140,6 +146,20 @@ public class FishManager : MonoBehaviour
     {
         hunger = assgn;
     }
+
+    public void grab()
+    {
+        nabbed = true;
+
+        rigidbody2D.simulated = false;
+    }
+
+    public void release()
+    {
+        nabbed = false;
+
+            rigidbody2D.simulated = true;
+        }
 
     public void addFood(GameObject food)
     {

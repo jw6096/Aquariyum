@@ -27,6 +27,7 @@ public class BottomFeederManager : MonoBehaviour
     private float x;
     private Camera camera;
     private bool flip;
+    private bool nabbed = false;
 
     private GameObject fishManager;
     private SpriteRenderer image;
@@ -64,6 +65,11 @@ public class BottomFeederManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (nabbed)
+        {
+            return;
+        }
+
         if (fishState != FishState.Dead)
         {
             //avoid edges
@@ -156,6 +162,20 @@ public class BottomFeederManager : MonoBehaviour
     public void setHunger(float assgn)
     {
         hunger = assgn;
+    }
+
+    public void grab()
+    {
+        nabbed = true;
+
+        rigidbody2D.simulated = false;
+    }
+
+    public void release()
+    {
+        nabbed = false;
+
+        rigidbody2D.simulated = true;
     }
 
     public void addFood(GameObject food)
