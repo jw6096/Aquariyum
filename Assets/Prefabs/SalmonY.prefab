@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4849380294388539917}
   m_Layer: 0
   m_Name: SalmonY
-  m_TagString: BabyFish
+  m_TagString: ToddlerFish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,6 +152,9 @@ MonoBehaviour:
   - {fileID: 21300004, guid: 44ce3db06079f1845a1b50ef9dde79c4, type: 3}
   - {fileID: 21300006, guid: 44ce3db06079f1845a1b50ef9dde79c4, type: 3}
   nextStage: {fileID: 2144922372, guid: 6d1c6ba825b4ad04fad748bfd7f07f54, type: 3}
+  bronze: {fileID: 6644693053055932467, guid: 6df015d99ea5a204795ceb3a670e5e0c, type: 3}
+  silver: {fileID: 1088224995695492748, guid: a8d18b6dd0fc39b4ea0e30c54c648cc8, type: 3}
+  gold: {fileID: 6112041510284662149, guid: b9383b8420f58bd4bb0248fd6c48786c, type: 3}
 --- !u!114 &4849380294388539917
 MonoBehaviour:
   m_ObjectHideFlags: 0

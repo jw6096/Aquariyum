@@ -113,14 +113,6 @@ public class GameManager : MonoBehaviour
             }
             */
         }
-
-        //Temp until coin spawner stuff is in
-        spawnTimer -= Time.deltaTime;
-        if(spawnTimer <= 0.0f)
-        {
-            SpawnCoin(new Vector3(Random.Range(-7, 7), 2.0f, 0.0f));
-            spawnTimer = Random.Range(5.0f, 10.0f);
-        }
     }
 
     public void SpawnCoin(Vector3 position)

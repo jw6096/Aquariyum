@@ -152,3 +152,6 @@ MonoBehaviour:
   - {fileID: 21300006, guid: b11e5d38d1a57584c90fe70275f042a9, type: 3}
   nextStage: {fileID: 6291539111968171395, guid: bf56b482d94656247bb564342f71752b,
     type: 3}
+  bronze: {fileID: 6644693053055932467, guid: 6df015d99ea5a204795ceb3a670e5e0c, type: 3}
+  silver: {fileID: 1088224995695492748, guid: a8d18b6dd0fc39b4ea0e30c54c648cc8, type: 3}
+  gold: {fileID: 6112041510284662149, guid: b9383b8420f58bd4bb0248fd6c48786c, type: 3}

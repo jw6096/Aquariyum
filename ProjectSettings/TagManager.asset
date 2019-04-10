@@ -12,6 +12,8 @@ TagManager:
   - Game Manager
   - Coin
   - Menu
+  - ToddlerFish
+  - AdultFish
   layers:
   - Default
   - TransparentFX
