@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     Camera mainCamera;
     int coins = 100;      //Number of coins
     public int seaweedSlotNumber;
-    int numSeaweed = 0;
+    public int numSeaweed = 0;
     int numberFish; //Number of owned fish
     float spawnTimer;
     public List<GameObject> items = new List<GameObject>();
@@ -214,6 +214,7 @@ public class GameManager : MonoBehaviour
                         case 1:
                             seaweedPos = mainCamera.ViewportToWorldPoint(new Vector3(0.8f, 0.25f, 0));
                             Instantiate(items[slotNumber], new Vector2(seaweedPos.x, seaweedPos.y), Quaternion.identity);
+                            GetComponent<UIManager>().storeButtons[3].interactable = false;
                             break;
                         case 2:
                             return;
