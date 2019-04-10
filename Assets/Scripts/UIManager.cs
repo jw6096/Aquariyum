@@ -31,9 +31,19 @@ public class UIManager : MonoBehaviour
                 rt.anchoredPosition = new Vector2(0, -300);
                 isSlidingIn = false;
                 isStoreVisable = true;
-                foreach (Button button in storeButtons)
+                for (int i = 0; i < storeButtons.Length; i++)
                 {
-                    button.interactable = true;
+                    if (i == gm.seaweedSlotNumber)
+                    {
+                        if (gm.numSeaweed != 2)
+                        {
+                            storeButtons[i].interactable = true;
+                        }
+                    }
+                    else
+                    {
+                        storeButtons[i].interactable = true;
+                    }
                 }
                 slider.GetComponent<ScrollRect>().enabled = true;
                 buyButton.interactable = true;
@@ -53,7 +63,6 @@ public class UIManager : MonoBehaviour
                 buyButton.interactable = true;
             }
         }
-
         UpdateCoins(gm.Coins);
     }
 
