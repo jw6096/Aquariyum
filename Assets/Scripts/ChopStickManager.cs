@@ -97,6 +97,8 @@ public class ChopStickManager : MonoBehaviour
 
         health--;
 
+        rigidbody2D.velocity = new Vector2(0, 0);
+
         if (sushi != null)
         {
             sushi.transform.parent = fish.transform;
