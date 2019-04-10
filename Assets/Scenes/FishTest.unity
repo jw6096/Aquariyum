@@ -332,6 +332,7 @@ MonoBehaviour:
   bronze: {fileID: 6644693053055932467, guid: 6df015d99ea5a204795ceb3a670e5e0c, type: 3}
   silver: {fileID: 1088224995695492748, guid: a8d18b6dd0fc39b4ea0e30c54c648cc8, type: 3}
   gold: {fileID: 6112041510284662149, guid: b9383b8420f58bd4bb0248fd6c48786c, type: 3}
+  seaweedSlotNumber: 3
   items:
   - {fileID: 187606054997975008, guid: 58ba0bd2a1d282942a0f9f0c01d9feab, type: 3}
   - {fileID: 4389853909487931526, guid: 238c6610dbb38a9438de86be4c750249, type: 3}

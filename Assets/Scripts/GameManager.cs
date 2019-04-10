@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public GameObject gold;
     Camera mainCamera;
     int coins = 100;      //Number of coins
+    public int seaweedSlotNumber;
+    int numSeaweed = 0;
     int numberFish; //Number of owned fish
     float spawnTimer;
     public List<GameObject> items = new List<GameObject>();
@@ -195,7 +197,31 @@ public class GameManager : MonoBehaviour
             if (coins - prices[slotNumber] >= 0)
             {
                 //Debug.Log(items[slotNumber].tag);
-                Instantiate(items[slotNumber], new Vector2(0, 0), Quaternion.identity).SendMessage("splash", null, SendMessageOptions.DontRequireReceiver);
+                if(slotNumber != seaweedSlotNumber)
+                {
+                    Instantiate(items[slotNumber], new Vector2(0, 0), Quaternion.identity).SendMessage("splash", null, SendMessageOptions.DontRequireReceiver);
+                }
+                //Thrown together Seaweed spawn logic
+                else
+                {
+                    Vector3 seaweedPos = Vector3.zero;
+                    switch(numSeaweed)
+                    {
+                        case 0:
+                            seaweedPos = mainCamera.ViewportToWorldPoint(new Vector3(0.2f, 0.25f, 0));
+                            Instantiate(items[slotNumber], new Vector2(seaweedPos.x, seaweedPos.y), Quaternion.AngleAxis(180, Vector3.up));
+                            break;
+                        case 1:
+                            seaweedPos = mainCamera.ViewportToWorldPoint(new Vector3(0.8f, 0.25f, 0));
+                            Instantiate(items[slotNumber], new Vector2(seaweedPos.x, seaweedPos.y), Quaternion.identity);
+                            break;
+                        case 2:
+                            return;
+                        default:
+                            return;
+                    }
+                    numSeaweed++;
+                }
                 coins -= prices[slotNumber];
             }
         }
