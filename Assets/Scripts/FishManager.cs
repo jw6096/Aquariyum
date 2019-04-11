@@ -179,8 +179,6 @@ public class FishManager : MonoBehaviour
             SpawnCoin(new Vector3(this.gameObject.transform.position.x + Random.Range(0.5f, 0.5f), this.gameObject.transform.position.y + Random.Range(-0.5f, 0.5f), 0.0f));
             spawnTimer = Random.Range(5.0f, 10.0f);
         }
-
-        Debug.Log(fishAge);
     }
 
     public void SpawnCoin(Vector3 position)

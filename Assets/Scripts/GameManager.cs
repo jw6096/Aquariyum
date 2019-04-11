@@ -20,6 +20,9 @@ public class GameManager : MonoBehaviour
     public List<int> prices = new List<int>();
     private int itemSlotNumber = 0;
     public bool isBuyingRice = false;
+    public GameObject chopSticks;
+    private float sinceChopSticks = 0;
+    private float chopSticksTimer = 0;
 
     GraphicRaycaster m_Raycaster;
     PointerEventData m_PointerEventData;
@@ -63,6 +66,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         spawnTimer = Random.Range(5.0f, 10.0f);
+        chopSticksTimer = Random.Range(45.0f, 75.0f);
         //Fetch the Raycaster from the GameObject (the Canvas)
         m_Raycaster = GameObject.FindWithTag("Menu").GetComponent<GraphicRaycaster>();
         //Fetch the Event System from the Scene
@@ -72,6 +76,16 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(sinceChopSticks >= chopSticksTimer)
+        {
+            Instantiate(chopSticks, new Vector3(0, 10, 0), Quaternion.identity);
+            chopSticksTimer = Random.Range(45.0f, 75.0f);
+            sinceChopSticks = 0;
+        }
+        else
+        {
+            sinceChopSticks += Time.deltaTime;
+        }
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

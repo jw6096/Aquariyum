@@ -69,6 +69,8 @@ public class ChopStickManager : MonoBehaviour
                     rigidbody2D.velocity = new Vector2(0, 0);
 
                     sushi = null;
+
+                    Destroy(gameObject);
                 }
             }
             else

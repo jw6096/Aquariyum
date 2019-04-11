@@ -26,9 +26,9 @@ public class UIManager : MonoBehaviour
         {
             RectTransform rt = buyMenu.GetComponent<RectTransform>();
             rt.anchoredPosition = new Vector2(0, rt.anchoredPosition.y - 1);
-            if (rt.anchoredPosition.y <= -300)
+            if (rt.anchoredPosition.y <= -65)
             {
-                rt.anchoredPosition = new Vector2(0, -300);
+                rt.anchoredPosition = new Vector2(0, -65);
                 isSlidingIn = false;
                 isStoreVisable = true;
                 for (int i = 0; i < storeButtons.Length; i++)
@@ -55,9 +55,9 @@ public class UIManager : MonoBehaviour
             GetComponent<GameManager>().isBuyingRice = false;
             RectTransform rt = buyMenu.GetComponent<RectTransform>();
             rt.anchoredPosition = new Vector2(0, rt.anchoredPosition.y + 1);
-            if (rt.anchoredPosition.y >= -250)
+            if (rt.anchoredPosition.y >= 0)
             {
-                rt.anchoredPosition = new Vector2(0, -250);
+                rt.anchoredPosition = new Vector2(0, 0);
                 isSlidingOut = false;
                 isStoreVisable = false;
                 buyButton.interactable = true;

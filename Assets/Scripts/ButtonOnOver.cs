@@ -1,19 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ButtonOnOver : MonoBehaviour
+public class ButtonOnOver : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public Image description;
+    public GameObject description;
 
-    public void OnMouseEnter()
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        description.enabled = true;
-        Debug.Log("enter");
+        if (GetComponent<Button>().interactable == true)
+        {
+            description.SetActive(true);
+        }
     }
-    public void OnMouseExit()
+    public void OnPointerExit(PointerEventData eventData)
     {
-        description.enabled = false;
+        description.SetActive(false);
     }
 }
